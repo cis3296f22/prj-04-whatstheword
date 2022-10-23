@@ -1,9 +1,9 @@
-# Project Name
-Put here a short paragraph describing your project. 
+# What's the Word
+TODO: Put here a short paragraph describing your project. 
 Adding an screenshot or a mockup of your application in action would be nice.  
 
 ![This is a screenshot.](public/images.png)
-# How to run
+# How to run (TODO)
 Provide here instructions on how to use your application.   
 - Download the latest binary from the Release section on the right on GitHub.  
 - On the command line uncompress using
@@ -16,10 +16,10 @@ tar -xzf
 ```
 - You will see Hello World! on your terminal. 
 
-# How to contribute
-Follow this project board to know the latest status of the project: [http://...]([http://...])  
+# How to contribute (TODO)
+Follow this project board to keep up with the latest status of the project: [What's the Word Project Board]([https://github.com/orgs/cis3296f22/projects/111])  
 
-### How to build
+### How to build (TODO)
 - Use this github repository: ... 
 - Specify what branch to use for a more stable release or for cutting edge development.  
 - Use InteliJ 11
