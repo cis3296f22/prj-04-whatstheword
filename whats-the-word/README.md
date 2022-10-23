@@ -17,7 +17,7 @@ tar -xzf
 - You will see Hello World! on your terminal. 
 
 # How to contribute (TODO)
-Follow this project board to keep up with the latest status of the project: [What's the Word Project Board]([https://github.com/orgs/cis3296f22/projects/111])  
+Follow the [Project Board](https://github.com/orgs/cis3296f22/projects/111) to keep up with the latest status of What's the Word.
 
 ### How to build (TODO)
 - Use this github repository: ... 
