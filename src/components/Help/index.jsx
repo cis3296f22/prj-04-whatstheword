@@ -7,7 +7,8 @@ function Box(props) {
   return (
     <div
       className={
-        "w-8 h-8 sm:w-10 sm:h-10 grid place-items-center p-0 m-0 font-bold text-lg sm:text-2xl " + state
+        "w-8 h-8 sm:w-10 sm:h-10 grid place-items-center p-0 m-0 font-bold text-lg sm:text-2xl " +
+        state
       }
     >
       {props.value}
@@ -19,7 +20,7 @@ function Help() {
   return (
     <>
       <p className="text-left text-sm sm:text-base py-5 font-regular opacity-75 mr-1">
-        Guess the WORDLE in six tries.
+        Guess the word in six tries.
         <br />
         Each guess must be a valid five-letter word. Hit the enter button to
         submit.
