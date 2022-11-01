@@ -47,7 +47,7 @@ function Help() {
         <Box value="S" />
       </div>
       <p className="text-left text-sm sm:text-base py-2 opacity-75">
-        The letter <b>M</b> is in the word and in the correct spot.
+        The letter <b>M</b> is in the word but NOT in the correct spot.
       </p>
       <div className="flex gap-1">
         <Box value="F" />
@@ -57,7 +57,7 @@ function Help() {
         <Box value="S" />
       </div>
       <p className="text-left text-sm sm:text-base py-2 opacity-75">
-        The letter <b>N</b> is in the word and in the correct spot.
+        The letter <b>L</b> is not in the word.
       </p>
     </>
   );
