@@ -7,6 +7,7 @@ import Modal from "../Modal";
 import NavBar from "../NavBar";
 import styles from "./style.module.css";
 
+// Putting the WhatstheWord Game together, using the other components (Board, Keyboard, etc) together
 function Game(props) {
   const [letter, setLetter] = useState();
   const [changed, setChanged] = useState(false);
@@ -16,6 +17,7 @@ function Game(props) {
   const [error, setError] = useState("");
   const [dark, setDark] = useState(false);
 
+  // Putting the input, the letters, in order to guess and enter the word
   const onClickDown = (event) => {
     if (event.key == "Enter") {
       setLetter("ENTER");
@@ -39,6 +41,7 @@ function Game(props) {
     props.darkness(dark);
   }, [dark]);
 
+  // Color change for the letters entered in for board and displayed keyoard
   const keyHandler = (letterValue) => {
     setLetter(letterValue);
     setClicked(clicked + 1);
