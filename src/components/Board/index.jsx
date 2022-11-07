@@ -11,6 +11,7 @@ let defaultLetters = [];
   defaultLetters[i] = "";
 });
 
+// 6 attempts for the game board
 for (let i = 0; i < 6; i++) {
   defaulBoard.push([]);
   for (let j = 0; j < 5; j++) {
@@ -28,6 +29,8 @@ function Board(props) {
   const [lost, setLost] = useState(false);
   const [message, setMessage] = useState("");
 
+  // Game ends win or lost, needs an option to play again
+  // the variable correct is the chosen word to be guessed
   useEffect(() => {
     if (win || lost) {
       console.log("Game ended!");

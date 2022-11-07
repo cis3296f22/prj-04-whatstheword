@@ -1,3 +1,7 @@
+
+// C --> Correct letter in the right place color (green)
+// E --> Correct letter in the wrong place color (yellow)
+// N --> Wrong letter color (gray)
 function Box(props) {
   let state = "text-black border-2 border-gray-300 dark:text-white";
   if (props.state === "C") state = "bg-emerald-500 text-white";
