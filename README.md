@@ -3,6 +3,7 @@
 
 # Getting Started with Create React App
 This project is available [here](https://cis3296f22.github.io/prj-04-whatstheword/)
+<br>
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
