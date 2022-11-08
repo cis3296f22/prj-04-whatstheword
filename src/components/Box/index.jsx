@@ -3,7 +3,7 @@ import BackspaceIcon from "@mui/icons-material/Backspace";
 
 // Properties of the game board (color)
 function Box(props) {
-  const [state, setState] = useState("text-black border-2 border-gray-300 dark:bg-zinc-800 dark:text-white rounded");
+  const [state, setState] = useState("text-black border-2 border-gray-300 dark:text-white blue:text-yellow red:text-yellow purple:text-yellow rounded");
 
   useEffect(() => {
     setTimeout(() => {
