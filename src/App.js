@@ -7,23 +7,51 @@ import Game from "./components/Game";
 
 function App() {
   const darkHandler = (dark) => {
-    if (dark) document.documentElement.classList.add("dark");
+    if (dark) {
+      //remove all other color schemes
+      document.documentElement.classList.remove("purple");
+      document.documentElement.classList.remove("blue");
+      document.documentElement.classList.remove("red");
+      //add desired color scheme
+      document.documentElement.classList.add("dark");
+    }
     else document.documentElement.classList.remove("dark");
 
   };
 
   const blueHandler = (blue) => {
-    if (blue) document.documentElement.classList.add("blue");
+    if (blue) {
+      //remove all other color schemes
+      document.documentElement.classList.remove("dark");
+      document.documentElement.classList.remove("purple");
+      document.documentElement.classList.remove("red");
+      //add desired color scheme
+      document.documentElement.classList.add("blue");
+    }
     else document.documentElement.classList.remove("blue");
   };
 
   const redHandler = (red) => {
-    if (red) document.documentElement.classList.add("red");
+    if (red) {
+      //remove all other color schemes
+      document.documentElement.classList.remove("dark");
+      document.documentElement.classList.remove("blue");
+      document.documentElement.classList.remove("purple");
+      //add desired color scheme
+      document.documentElement.classList.add("red");
+    }
     else document.documentElement.classList.remove("red");
   };
 
   const purpleHandler = (purple) => {
-    if (purple) document.documentElement.classList.add("purple");
+    if (purple) {
+      //remove all other color schemes
+      document.documentElement.classList.remove("dark");
+      document.documentElement.classList.remove("blue");
+      document.documentElement.classList.remove("red");
+      //add desired color scheme
+      document.documentElement.classList.add("purple");
+    }
     else document.documentElement.classList.remove("purple");
   };
   
