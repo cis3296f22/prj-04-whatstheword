@@ -65,3 +65,83 @@
     transform: rotate(360deg);
   }
 }
+
+/* ---------------------------- BLUE ----------------------------------*/
+/*bg-teal-900*/
+.blue .blue\:blue-dark {
+  --tw-bg-opacity: 1;
+  background-color: rgb(19 78 74 / var(--tw-bg-opacity));
+}
+
+/*bg-amber-500*/
+.blue .blue\:text-yellow {
+  color: rgb(245 158 11); 
+}
+
+.blue .blue\:blue-lightdark {
+  background-color: rgb(17 94 89);
+}
+
+/*bg-teal-600*/
+.blue .blue\:blue-keys {
+  background-color: rgb(13 148 136);
+}
+
+/*bg-teal-700*/
+.blue .blue\:blue-keys:hover {
+  background-color: rgb(15 118 110);
+}
+
+/* ---------------------------- RED ----------------------------------*/
+/*bg-red-900*/
+.red .red\:red-dark {
+  --tw-bg-opacity: 1;
+  background-color: rgb(127 29 29 / var(--tw-bg-opacity));
+}
+
+/*bg-red-800*/
+.red .red\:red-lightdark {
+  background-color: rgb(153 27 27);
+}
+
+/*bg-amber-500*/
+.red .red\:text-yellow {
+  color: rgb(245 158 11); 
+}
+
+/*bg-red-600*/
+.red .red\:red-keys {
+  background-color: rgb(220 38 38);
+}
+
+/*bg-red-700*/
+.red .red\:red-keys:hover {
+  background-color: rgb(185 28 28);
+}
+
+/* ---------------------------- PURPLE ----------------------------------*/
+/*bg-purple-900*/
+.purple .purple\:purple-dark {
+  --tw-bg-opacity: 1;
+  background-color: rgb(88 28 135 / var(--tw-bg-opacity));
+}
+
+/*bg-purple-800*/
+.purple .purple\:purple-lightdark {
+  background-color: rgb(107 33 168);
+}
+
+/*bg-amber-500*/
+.purple .purple\:text-yellow {
+  color: rgb(245 158 11); 
+}
+
+/*bg-purple-600*/
+.purple .purple\:purple-keys {
+  background-color: rgb(147 51 234);
+}
+
+/*bg-purple-700*/
+.purple .purple\:purple-keys:hover {
+  background-color: rgb(126 34 206);
+}
