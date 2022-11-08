@@ -1,5 +1,9 @@
+
+// C --> Correct letter in the right place color (green)
+// E --> Correct letter in the wrong place color (yellow)
+// N --> Wrong letter color (gray)
 function Box(props) {
-  let state = "text-black border-2 border-gray-300 dark:text-white";
+  let state = "text-black border-2 border-gray-300 dark:text-white blue:text-yellow red:text-yellow purple:text-yellow";
   if (props.state === "C") state = "bg-emerald-500 text-white";
   if (props.state === "E") state = "bg-amber-500 text-white";
   if (props.state === "N") state = "bg-zinc-500 text-white dark:bg-gray-700";
@@ -7,7 +11,8 @@ function Box(props) {
   return (
     <div
       className={
-        "w-8 h-8 sm:w-10 sm:h-10 grid place-items-center p-0 m-0 font-bold text-lg sm:text-2xl " + state
+        "w-8 h-8 sm:w-10 sm:h-10 grid place-items-center p-0 m-0 font-bold text-lg sm:text-2xl " +
+        state
       }
     >
       {props.value}
@@ -19,7 +24,7 @@ function Help() {
   return (
     <>
       <p className="text-left text-sm sm:text-base py-5 font-regular opacity-75 mr-1">
-        Guess the WORDLE in six tries.
+        Guess the word in six tries.
         <br />
         Each guess must be a valid five-letter word. Hit the enter button to
         submit.
@@ -46,7 +51,7 @@ function Help() {
         <Box value="S" />
       </div>
       <p className="text-left text-sm sm:text-base py-2 opacity-75">
-        The letter <b>M</b> is in the word and in the correct spot.
+        The letter <b>M</b> is in the word but NOT in the correct spot.
       </p>
       <div className="flex gap-1">
         <Box value="F" />
@@ -56,7 +61,7 @@ function Help() {
         <Box value="S" />
       </div>
       <p className="text-left text-sm sm:text-base py-2 opacity-75">
-        The letter <b>N</b> is in the word and in the correct spot.
+        The letter <b>L</b> is not in the word.
       </p>
     </>
   );

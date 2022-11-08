@@ -1,6 +1,6 @@
 {
-  "homepage": "https://MahmoudFettal.github.com/wordle",
-  "name": "wordle",
+  "homepage": "https://cis3296f22.github.io/prj-04-whatstheword",
+  "name": "whats-the-word",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

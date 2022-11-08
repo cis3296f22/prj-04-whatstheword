@@ -7,16 +7,26 @@ const correct =
 let defaulBoard = [];
 let defaultLetters = [];
 
+console.log("The Correct Word is: " + correct);
+
 "abcdefghijklmnopqrstuvwxyz".split("").forEach((i) => {
   defaultLetters[i] = "";
 });
 
+// 6 attempts for the game board
 for (let i = 0; i < 6; i++) {
   defaulBoard.push([]);
   for (let j = 0; j < 5; j++) {
     defaulBoard[i].push(["", ""]);
   }
 }
+
+// const letter --> the clickable text (Delete, Enter)
+// const board --> the display of the board (Connected with row)
+// const changed --> changes to the board
+// const row --> the rows of the board
+// const col --> The current attempt of word
+// const message --> Relays message to display
 
 function Board(props) {
   const [letters, setLetters] = useState(defaultLetters);
@@ -28,6 +38,8 @@ function Board(props) {
   const [lost, setLost] = useState(false);
   const [message, setMessage] = useState("");
 
+  // Game ends win or lost, needs an option to play again
+  // the variable correct is the chosen word to be guessed
   useEffect(() => {
     if (win || lost) {
       console.log("Game ended!");
@@ -63,9 +75,17 @@ function Board(props) {
                     if (correct[i] === prevBoard[row][i][0]) {
                       prevBoard[row][i][1] = "C";
                       correctLetters++;
-                    } else if (correct.includes(prevBoard[row][i][0]))
+                      // console.log(prevBoard);
+                      console.log(prevBoard[row][i]);
+                    } else if (correct.includes(prevBoard[row][i][0])) 
+                    {
                       prevBoard[row][i][1] = "E";
-                    else prevBoard[row][i][1] = "N";
+                      console.log(prevBoard[row][i]);
+                    }
+                    else {
+                      prevBoard[row][i][1] = "N";
+                      console.log(prevBoard[row][i]);
+                    }
                     setRow(row + 1);
                     if (row === 5) {
                       setLost(true);
@@ -119,7 +139,7 @@ function Board(props) {
           </div>
         );
       })}
-      <div className=" grid place-items-center h-8 font-bold dark:text-white">
+      <div className=" grid place-items-center h-8 font-bold dark:text-white blue:text-yellow red:text-yellow purple:text-yellow">
         {lost || win ? message : ""}
       </div>
     </div>
