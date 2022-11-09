@@ -27,6 +27,7 @@ function Board(props) {
   const [win, setWin] = useState(false);
   const [lost, setLost] = useState(false);
   const [message, setMessage] = useState("");
+  const [valid, setValid] = useState(false);
 
   useEffect(() => {
     if (win || lost) {
@@ -58,7 +59,21 @@ function Board(props) {
                 for (let i = 0; i < 5; i++) {
                   word += prevBoard[row][i][0];
                 }
-                if (words.includes(word.toLowerCase())) {
+                fetch('https://api.dictionaryapi.dev/api/v2/entries/en/' + word.toLowerCase())
+                  .then((response) => response.json())
+                  .then((data) => {
+                     if (data.title == 'No Definitions Found') {
+                       console.log('Unsuccessful dictionary validation')
+                       setValid(false);
+                     } else {
+                       console.log('Successful dictionary validation')
+                       setValid(true);
+                       console.log(valid)
+                     }
+                })
+                console.log(valid);
+                if (valid) {
+                  console.log(valid);
                   for (let i = 0; i < 5; i++) {
                     if (correct[i] === prevBoard[row][i][0]) {
                       prevBoard[row][i][1] = "C";
@@ -107,6 +122,10 @@ function Board(props) {
   useEffect(() => {
     props.letters(letters);
   }, [changed]);
+
+  const ValidHandler = (validValue) => {
+    setValid(validValue);
+  };
 
   return (
     <div className="px-10 py-5 grid gap-y-1 items-center w-100 justify-center">
