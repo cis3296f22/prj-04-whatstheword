@@ -37,10 +37,34 @@ function Board(props) {
   const [win, setWin] = useState(false);
   const [lost, setLost] = useState(false);
   const [message, setMessage] = useState("");
+  // Set initial value to undefined, since validation hasn't run yet
+  const [valid, setValid] = useState(undefined);
 
-  // Game ends win or lost, needs an option to play again
-  // the variable correct is the chosen word to be guessed
+
+  // Keep existing Effect hook
+
   useEffect(() => {
+    // Create an async function that can await fetch() & response.json() calls
+    const checkWord = async (prevBoard) => {
+      let word = "";
+      for (let i = 0; i < 5; i++) {
+        word += prevBoard[row][i][0];
+      }
+
+      const response = await fetch(
+        "https://api.dictionaryapi.dev/api/v2/entries/en/" + word.toLowerCase()
+      );
+      const data = await response.json();
+
+      if (data.title == "No Definitions Found") {
+        console.log("Unsuccessful dictionary validation");
+        setValid(false);
+      } else {
+        console.log("Successful dictionary validation");
+        setValid(true);
+      }
+    };
+
     if (win || lost) {
       console.log("Game ended!");
     } else {
@@ -65,56 +89,10 @@ function Board(props) {
               }
             } else {
               if (props.letter === "ENTER") {
-                let correctLetters = 0;
-                let word = "";
-                for (let i = 0; i < 5; i++) {
-                  word += prevBoard[row][i][0];
-                }
-                if (words.includes(word.toLowerCase())) {
-                  for (let i = 0; i < 5; i++) {
-                    if (correct[i] === prevBoard[row][i][0]) {
-                      prevBoard[row][i][1] = "C";
-                      correctLetters++;
-                      // console.log(prevBoard);
-                      console.log(prevBoard[row][i]);
-                    } else if (correct.includes(prevBoard[row][i][0])) 
-                    {
-                      prevBoard[row][i][1] = "E";
-                      console.log(prevBoard[row][i]);
-                    }
-                    else {
-                      prevBoard[row][i][1] = "N";
-                      console.log(prevBoard[row][i]);
-                    }
-                    setRow(row + 1);
-                    if (row === 5) {
-                      setLost(true);
-                      setTimeout(() => {
-                        setMessage(`It was ${correct}`);
-                      }, 750);
-                    }
 
-                    setCol(0);
-                    setLetters((prev) => {
-                      prev[board[row][i][0]] = board[row][i][1];
-                      return prev;
-                    });
-                  }
-                  setChanged(!changed);
+                // Call async function defined above
+                checkWord(prevBoard);
 
-                  if (correctLetters === 5) {
-                    setWin(true);
-                    setTimeout(() => {
-                      setMessage("You WIN");
-                    }, 750);
-                  }
-                  return prevBoard;
-                } else {
-                  props.error("Word not in dictionary");
-                  setTimeout(() => {
-                    props.error("");
-                  }, 1000);
-                }
               }
             }
             return prevBoard;
@@ -123,6 +101,51 @@ function Board(props) {
       }
     }
   }, [props.clicks]);
+
+  // Add new Effect Hook that depends on valid value
+  useEffect(() => {
+    const prevBoard = board;
+    let correctLetters = 0;
+    // TODO - remove debug console.log() line below
+    console.log(valid);
+    if (valid) {
+      for (let i = 0; i < 5; i++) {
+        if (correct[i] === prevBoard[row][i][0]) {
+          prevBoard[row][i][1] = "C";
+          correctLetters++;
+        } else if (correct.includes(prevBoard[row][i][0]))
+          prevBoard[row][i][1] = "E";
+        else prevBoard[row][i][1] = "N";
+        setRow(row + 1);
+        if (row === 5) {
+          setLost(true);
+          setTimeout(() => {
+            setMessage(`It was ${correct}`);
+          }, 750);
+        }
+
+        setCol(0);
+        setLetters((prev) => {
+          prev[board[row][i][0]] = board[row][i][1];
+          return prev;
+        });
+      }
+      setChanged(!changed);
+
+      if (correctLetters === 5) {
+        setWin(true);
+        setTimeout(() => {
+          setMessage("You WIN");
+        }, 750);
+      }
+      return prevBoard;
+    } else if (valid === false) {
+      props.error("Word not in dictionary");
+      setTimeout(() => {
+        props.error("");
+      }, 1000);
+    }
+  }, [valid]);
 
   useEffect(() => {
     props.letters(letters);
