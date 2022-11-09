@@ -7,16 +7,26 @@ const correct =
 let defaulBoard = [];
 let defaultLetters = [];
 
+console.log("The Correct Word is: " + correct);
+
 "abcdefghijklmnopqrstuvwxyz".split("").forEach((i) => {
   defaultLetters[i] = "";
 });
 
+// 6 attempts for the game board
 for (let i = 0; i < 6; i++) {
   defaulBoard.push([]);
   for (let j = 0; j < 5; j++) {
     defaulBoard[i].push(["", ""]);
   }
 }
+
+// const letter --> the clickable text (Delete, Enter)
+// const board --> the display of the board (Connected with row)
+// const changed --> changes to the board
+// const row --> the rows of the board
+// const col --> The current attempt of word
+// const message --> Relays message to display
 
 function Board(props) {
   const [letters, setLetters] = useState(defaultLetters);
@@ -30,7 +40,9 @@ function Board(props) {
   // Set initial value to undefined, since validation hasn't run yet
   const [valid, setValid] = useState(undefined);
 
+
   // Keep existing Effect hook
+
   useEffect(() => {
     // Create an async function that can await fetch() & response.json() calls
     const checkWord = async (prevBoard) => {
@@ -77,8 +89,10 @@ function Board(props) {
               }
             } else {
               if (props.letter === "ENTER") {
+
                 // Call async function defined above
                 checkWord(prevBoard);
+
               }
             }
             return prevBoard;
@@ -148,7 +162,7 @@ function Board(props) {
           </div>
         );
       })}
-      <div className=" grid place-items-center h-8 font-bold dark:text-white">
+      <div className=" grid place-items-center h-8 font-bold dark:text-white blue:text-yellow red:text-yellow purple:text-yellow">
         {lost || win ? message : ""}
       </div>
     </div>

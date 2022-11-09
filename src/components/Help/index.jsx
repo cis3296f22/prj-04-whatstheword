@@ -1,5 +1,9 @@
+
+// C --> Correct letter in the right place color (green)
+// E --> Correct letter in the wrong place color (yellow)
+// N --> Wrong letter color (gray)
 function Box(props) {
-  let state = "text-black border-2 border-gray-300 dark:text-white";
+  let state = "text-black border-2 border-gray-300 dark:text-white blue:text-yellow red:text-yellow purple:text-yellow";
   if (props.state === "C") state = "bg-emerald-500 text-white";
   if (props.state === "E") state = "bg-amber-500 text-white";
   if (props.state === "N") state = "bg-zinc-500 text-white dark:bg-gray-700";
@@ -47,7 +51,7 @@ function Help() {
         <Box value="S" />
       </div>
       <p className="text-left text-sm sm:text-base py-2 opacity-75">
-        The letter <b>M</b> is in the word and in the correct spot.
+        The letter <b>M</b> is in the word but NOT in the correct spot.
       </p>
       <div className="flex gap-1">
         <Box value="F" />
@@ -57,7 +61,7 @@ function Help() {
         <Box value="S" />
       </div>
       <p className="text-left text-sm sm:text-base py-2 opacity-75">
-        The letter <b>N</b> is in the word and in the correct spot.
+        The letter <b>L</b> is not in the word.
       </p>
     </>
   );
