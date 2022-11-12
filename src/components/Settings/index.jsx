@@ -1,9 +1,7 @@
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import SettingsIcon from "@mui/icons-material/Settings";
-import FormControlLabel from "@mui/material/FormControlLabel";
 import { useState } from "react";
-import { Switch } from "@mui/material";
 
 function Settings(props) {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -47,28 +45,48 @@ function Settings(props) {
         onClick={handleClick}
         className="text-black dark:text-white blue:text-yellow red:text-yellow purple:text-yellow"
       />
-      <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
-        <FormControlLabel
-          className="pl-3.5 text-slate-600"
-          control={<Switch onChange={darkHandleChange} />}
-          label="Dark mode"
-        />
-        <FormControlLabel
-          className="pl-3.5 text-slate-600"
-          control={<Switch onChange={blueHandleChange} />}
-          label="Blue mode"
-        />
-        <FormControlLabel
-          className="pl-3.5 text-slate-600"
-          control={<Switch onChange={redHandleChange} />}
-          label="Red mode"
-        />
-        <FormControlLabel
-          className="pl-3.5 text-slate-600"
-          control={<Switch onChange={purpleHandleChange} />}
-          label="Purple mode"
-        />
-        <hr />
+      <Menu anchorEl={anchorEl} open={open} onClose={handleClose} style={{
+          minWidth: "90em",
+          maxWidth: "101em"
+        }}>
+      <div className="sub-settings">Themes</div>
+        <Button
+          className="pl-3.5 text-slate-600" 
+          style={{
+            backgroundColor: "#27272A",
+            margin: "1em"
+          }}
+          variant="contained"
+          onClick={darkHandleChange}
+        ></Button>
+        <Button
+          className="pl-3.5 text-slate-600" 
+          style={{
+            backgroundColor: "rgb(17 94 89)",
+            margin: "1em"
+          }}
+          variant="contained"
+          onClick={blueHandleChange}
+        ></Button>
+        <Button
+          className="pl-3.5 text-slate-600" 
+          style={{
+            backgroundColor: "rgb(153 27 27)",
+            margin: "1em"
+          }}
+          variant="contained"
+          onClick={redHandleChange}
+        ></Button>
+        <Button
+          className="pl-3.5 text-slate-600" 
+          style={{
+            backgroundColor: "rgb(107 33 168)",
+            margin: "1em"
+          }}
+          variant="contained"
+          onClick={purpleHandleChange}
+        ></Button>
+        <div className="sub-settings">Leaderboard</div>
       </Menu>
     </div>
   );
