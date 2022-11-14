@@ -6,6 +6,10 @@ import { useState } from "react";
 function Settings(props) {
   const [anchorEl, setAnchorEl] = useState(null);
 
+  const leaderboardChange = () => {
+    props.leaderboard(true);
+  }
+
   // darkness is the name of the Game in App.css
   const darkHandleChange = () => {
     props.darkness(!props.dark);
@@ -87,6 +91,24 @@ function Settings(props) {
           onClick={purpleHandleChange}
         ></Button>
         <div className="sub-settings">Leaderboard</div>
+        <div className="container">
+          <Button
+            className="pl-3.5 text-slate-600" 
+            style={{
+              margin: "1em"
+            }}
+            variant="contained"
+            onClick={leaderboardChange}
+          >Personal</Button>
+          <Button
+            className="pl-3.5 text-slate-600" 
+            style={{
+              margin: "1em"
+            }}
+            variant="contained"
+            onClick={leaderboardChange}
+          >WorldWide</Button>
+        </div>
       </Menu>
     </div>
   );
