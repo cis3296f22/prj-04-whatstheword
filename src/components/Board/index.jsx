@@ -2,24 +2,28 @@ import { useEffect, useState } from "react";
 import Box from "../Box";
 import words from "../../words";
 
-const correct =
-  words[Math.floor(Math.random() * words.length - 1)].toUpperCase();
-let defaulBoard = [];
-let defaultLetters = [];
+const DEFAULT_WORD_LENGTH = 5;
 
-console.log("The Correct Word is: " + correct);
-
+const defaultLetters = [];
 "abcdefghijklmnopqrstuvwxyz".split("").forEach((i) => {
   defaultLetters[i] = "";
 });
 
-// 6 attempts for the game board
-for (let i = 0; i < 6; i++) {
-  defaulBoard.push([]);
-  for (let j = 0; j < 5; j++) {
-    defaulBoard[i].push(["", ""]);
+const chooseCorrectWord = (wordLength) => {
+  const wordIndex = Math.round(Math.random() * (words[wordLength].length - 1));
+  return words[wordLength][wordIndex].toUpperCase();
+};
+
+const generateDefaultBoard = (wordLength) => {
+  const defaultBoard = [];
+  for (let i = 0; i < wordLength + 1; i++) {
+    defaultBoard.push([]);
+    for (let j = 0; j < wordLength; j++) {
+      defaultBoard[i].push(["", ""]);
+    }
   }
-}
+  return defaultBoard;
+};
 
 // const letter --> the clickable text (Delete, Enter)
 // const board --> the display of the board (Connected with row)
@@ -29,8 +33,18 @@ for (let i = 0; i < 6; i++) {
 // const message --> Relays message to display
 
 function Board(props) {
+  const [wordLength, setWordLength] = useState(DEFAULT_WORD_LENGTH);
+  const [correctWord, setCorrectWord] = useState(chooseCorrectWord(wordLength));
+  const [board, setBoard] = useState(generateDefaultBoard(wordLength));
+  useEffect(() => {
+    console.log("generating new board for wordLength:", wordLength);
+    setBoard(generateDefaultBoard(wordLength));
+    const newCorrectWord = chooseCorrectWord(wordLength);
+    console.log("setting newCorrectWord:", newCorrectWord);
+    setCorrectWord(newCorrectWord);
+  }, [wordLength]);
+
   const [letters, setLetters] = useState(defaultLetters);
-  const [board, setBoard] = useState(defaulBoard);
   const [changed, setChanged] = useState(false);
   const [row, setRow] = useState(0);
   const [col, setCol] = useState(0);
@@ -44,10 +58,11 @@ function Board(props) {
   // Keep existing Effect hook
 
   useEffect(() => {
+    console.log("Clicks effect hook");
     // Create an async function that can await fetch() & response.json() calls
     const checkWord = async (prevBoard) => {
       let word = "";
-      for (let i = 0; i < 5; i++) {
+      for (let i = 0; i < wordLength; i++) {
         word += prevBoard[row][i][0];
       }
 
@@ -77,12 +92,13 @@ function Board(props) {
           });
         } else {
           setBoard((prevBoard) => {
-            if (col < 5) {
+            if (col < wordLength) {
               if (props.letter !== "ENTER") {
                 prevBoard[row][col][0] = props.letter;
                 setCol(col + 1);
+                setValid(undefined);
               } else {
-                props.error("Words are 5 letters long!");
+                props.error(`Words are ${wordLength} letters long!`);
                 setTimeout(() => {
                   props.error("");
                 }, 1000);
@@ -100,27 +116,28 @@ function Board(props) {
         }
       }
     }
-  }, [props.clicks]);
+  }, [props.clicks, wordLength]);
 
   // Add new Effect Hook that depends on valid value
   useEffect(() => {
+    console.log("Valid effect hook");
     const prevBoard = board;
     let correctLetters = 0;
     // TODO - remove debug console.log() line below
-    console.log(valid);
+    console.log("is Valid?", valid);
     if (valid) {
-      for (let i = 0; i < 5; i++) {
-        if (correct[i] === prevBoard[row][i][0]) {
+      for (let i = 0; i < wordLength; i++) {
+        if (correctWord[i] === prevBoard[row][i][0]) {
           prevBoard[row][i][1] = "C";
           correctLetters++;
-        } else if (correct.includes(prevBoard[row][i][0]))
+        } else if (correctWord.includes(prevBoard[row][i][0]))
           prevBoard[row][i][1] = "E";
         else prevBoard[row][i][1] = "N";
         setRow(row + 1);
-        if (row === 5) {
+        if (row === wordLength) {
           setLost(true);
           setTimeout(() => {
-            setMessage(`It was ${correct}`);
+            setMessage(`It was ${correctWord}`);
           }, 750);
         }
 
@@ -132,7 +149,7 @@ function Board(props) {
       }
       setChanged(!changed);
 
-      if (correctLetters === 5) {
+      if (correctLetters === wordLength) {
         setWin(true);
         setTimeout(() => {
           setMessage("You WIN");
@@ -145,7 +162,7 @@ function Board(props) {
         props.error("");
       }, 1000);
     }
-  }, [valid]);
+  }, [valid, wordLength, correctWord]);
 
   useEffect(() => {
     props.letters(letters);
