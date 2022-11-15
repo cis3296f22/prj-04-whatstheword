@@ -1,14 +1,17 @@
-import { useState, useEffect } from "react";
+import { useCallback, useState, useEffect } from "react";
 import Board from "../Board";
 import Error from "../Error";
 import Help from "../Help";
 import KeyBoard from "../KeyBoard";
+import Menu from "../Menu";
 import Modal from "../Modal";
 import NavBar from "../NavBar";
 import styles from "./style.module.css";
+import { useMainMenu } from "./useMainMenu";
 
 // Putting the WhatstheWord Game together, using the other components (Board, Keyboard, etc) together
 function Game(props) {
+  const [mainMenu, setMainMenu, hideMainMenu] = useMainMenu();
   const [letter, setLetter] = useState();
   const [changed, setChanged] = useState(false);
   const [letters, setLetters] = useState({});
@@ -20,6 +23,7 @@ function Game(props) {
   const [red, setRed] = useState(false);
   const [purple, setPurple] = useState(false);
 
+  const start = () => hideMainMenu();
 
   // Putting the input, the letters, in order to guess and enter the word
   const onClickDown = (event) => {
@@ -77,14 +81,22 @@ function Game(props) {
       {error && <Error>{error}</Error>}
       <div className={styles.game}>
         <NavBar help={setHelp} darkness={setDark} dark={dark} blueness={setBlue} blue={blue} redness={setRed} red={red} purpleness={setPurple} purple={purple} />
-        <hr />
-        <Board
-          letter={letter}
-          clicks={clicked}
-          letters={LettersHandler}
-          error={setError}
-        />
-        <KeyBoard keyHandler={keyHandler} letters={letters} changed={changed} />
+        {mainMenu ? (
+          <div>
+            <Menu onClick={start}/>
+          </div>
+        ) : (
+          <div>
+            <hr />
+            <Board
+              letter={letter}
+              clicks={clicked}
+              letters={LettersHandler}
+              error={setError}
+            />
+            <KeyBoard keyHandler={keyHandler} letters={letters} changed={changed} />
+          </div>
+        )}
       </div>
     </>
   );

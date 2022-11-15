@@ -1,26 +1,12 @@
-function Box(props) {
-    let state = "text-black border-2 border-gray-300 dark:text-white blue:text-yellow red:text-yellow purple:text-yellow";
-    if (props.state === "C") state = "bg-emerald-500 text-white";
-    if (props.state === "E") state = "bg-amber-500 text-white";
-    if (props.state === "N") state = "bg-zinc-500 text-white dark:bg-gray-700";
-  
-    return (
-      <div
-        className={
-          "w-8 h-8 sm:w-10 sm:h-10 grid place-items-center p-0 m-0 font-bold text-lg sm:text-2xl " +
-          state
-        }
-      >
-        {props.value}
-      </div>
-    );
-  }
-  
-  function Menu() {
-    return (
-      <>
-      </>
-    );
-  }
-  
-  export default Menu;
+import { useEffect, useState } from "react";
+import Game from "../Game";
+
+const Menu = ({ onClick }) => (
+  <div className="flex flex-col items-center w-100 pb-5">
+    <button className="p-2 sm:p-4 bg-gray-200 hover:bg-gray-300 h-14 300 grid items-center rounded font-semibold cursor-pointer" onClick={onClick}>
+      PLAY
+    </button>
+  </div>
+);
+
+export default Menu;
