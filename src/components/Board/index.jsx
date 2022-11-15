@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import Box from "../Box";
+import Score from "../Score";
 import words from "../../words";
 
 const correct =
   words[Math.floor(Math.random() * words.length - 1)].toUpperCase();
-let defaulBoard = [];
+let defaultBoard = [];
 let defaultLetters = [];
 
 console.log("The Correct Word is: " + correct);
@@ -15,9 +16,9 @@ console.log("The Correct Word is: " + correct);
 
 // 6 attempts for the game board
 for (let i = 0; i < 6; i++) {
-  defaulBoard.push([]);
+  defaultBoard.push([]);
   for (let j = 0; j < 5; j++) {
-    defaulBoard[i].push(["", ""]);
+    defaultBoard[i].push(["", ""]);
   }
 }
 
@@ -30,7 +31,7 @@ for (let i = 0; i < 6; i++) {
 
 function Board(props) {
   const [letters, setLetters] = useState(defaultLetters);
-  const [board, setBoard] = useState(defaulBoard);
+  const [board, setBoard] = useState(defaultBoard);
   const [changed, setChanged] = useState(false);
   const [row, setRow] = useState(0);
   const [col, setCol] = useState(0);
@@ -39,32 +40,12 @@ function Board(props) {
   const [message, setMessage] = useState("");
   // Set initial value to undefined, since validation hasn't run yet
   const [valid, setValid] = useState(undefined);
+  const [attempts, setAttempts] = useState(1);
+  const [score, setScore] = useState(0);
 
-
-  // Keep existing Effect hook
+  var scoring = 0;
 
   useEffect(() => {
-    // Create an async function that can await fetch() & response.json() calls
-    const checkWord = async (prevBoard) => {
-      let word = "";
-      for (let i = 0; i < 5; i++) {
-        word += prevBoard[row][i][0];
-      }
-
-      const response = await fetch(
-        "https://api.dictionaryapi.dev/api/v2/entries/en/" + word.toLowerCase()
-      );
-      const data = await response.json();
-
-      if (data.title == "No Definitions Found") {
-        console.log("Unsuccessful dictionary validation");
-        setValid(false);
-      } else {
-        console.log("Successful dictionary validation");
-        setValid(true);
-      }
-    };
-
     if (win || lost) {
       console.log("Game ended!");
     } else {
@@ -89,10 +70,78 @@ function Board(props) {
               }
             } else {
               if (props.letter === "ENTER") {
+                let correctLetters = 0;
+                let word = "";
+                for (let i = 0; i < 5; i++) {
+                  word += prevBoard[row][i][0];
+                }
+                if (words.includes(word.toLowerCase())) {
+                  for (let i = 0; i < 5; i++) {
+                    if (correct[i] === prevBoard[row][i][0]) {
+                      prevBoard[row][i][1] = "C";
+                      correctLetters++;
+                    } else if (correct.includes(prevBoard[row][i][0]))
+                      prevBoard[row][i][1] = "E";
+                    else prevBoard[row][i][1] = "N";
+                    setRow(row + 1);
+                    setAttempts(attempts + 1); 
+                    if (row === 5) {
+                      setLost(true);
+                      setScore(0); //
+                      setTimeout(() => {
+                        setMessage(`It was ${correct}`);
+                      }, 750);
+                    }
 
-                // Call async function defined above
-                checkWord(prevBoard);
+                    setCol(0);
+                    setLetters((prev) => {
+                      prev[board[row][i][0]] = board[row][i][1];
+                      return prev;
+                    });
+                  }
+                  setChanged(!changed);
 
+                  if (correctLetters === 5) {
+                    setWin(true);
+                    switch (attempts) {
+                      case 1: 
+                          scoring = score + 300;
+                          setScore(scoring);
+                          break;
+                      case 2: 
+                          scoring = score + 250;
+                          setScore(scoring);
+                          break;
+                      case 3: 
+                          scoring = score + 200;
+                          setScore(scoring);
+                          break;
+                      case 4: 
+                          scoring = score + 150;
+                          setScore(scoring);
+                          break;
+                      case 5: 
+                          scoring = score + 100;
+                          setScore(scoring);
+                          break;
+                      case 6:
+                          scoring = score + 50;
+                          setScore(scoring);
+                          break;
+                    }
+                    console.log("Score: " + scoring);
+                    console.log("Attempts: " + attempts);
+                    setTimeout(() => {
+                      setMessage("You WIN");
+                    }, 750);
+                  }
+                  return prevBoard;
+                } else {
+                  props.error("Word not in dictionary");
+                  setTimeout(() => {
+                    props.error("");
+                  }, 1000);
+                }
               }
             }
             return prevBoard;
@@ -102,57 +151,15 @@ function Board(props) {
     }
   }, [props.clicks]);
 
-  // Add new Effect Hook that depends on valid value
-  useEffect(() => {
-    const prevBoard = board;
-    let correctLetters = 0;
-    // TODO - remove debug console.log() line below
-    console.log(valid);
-    if (valid) {
-      for (let i = 0; i < 5; i++) {
-        if (correct[i] === prevBoard[row][i][0]) {
-          prevBoard[row][i][1] = "C";
-          correctLetters++;
-        } else if (correct.includes(prevBoard[row][i][0]))
-          prevBoard[row][i][1] = "E";
-        else prevBoard[row][i][1] = "N";
-        setRow(row + 1);
-        if (row === 5) {
-          setLost(true);
-          setTimeout(() => {
-            setMessage(`It was ${correct}`);
-          }, 750);
-        }
-
-        setCol(0);
-        setLetters((prev) => {
-          prev[board[row][i][0]] = board[row][i][1];
-          return prev;
-        });
-      }
-      setChanged(!changed);
-
-      if (correctLetters === 5) {
-        setWin(true);
-        setTimeout(() => {
-          setMessage("You WIN");
-        }, 750);
-      }
-      return prevBoard;
-    } else if (valid === false) {
-      props.error("Word not in dictionary");
-      setTimeout(() => {
-        props.error("");
-      }, 1000);
-    }
-  }, [valid]);
-
   useEffect(() => {
     props.letters(letters);
   }, [changed]);
 
   return (
     <div className="px-10 py-5 grid gap-y-1 items-center w-100 justify-center">
+      <Score
+          score={score} attempts={attempts}
+        />
       {board.map((row, key) => {
         return (
           <div key={key} className="flex gap-1 w-fit">

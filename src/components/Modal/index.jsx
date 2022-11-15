@@ -29,7 +29,7 @@ function Modal(props) {
         className="z-0 absolute w-full h-full grid place-cente"
         onClick={() => {
           if (props.title == "Personal Leaderboard")
-                props.leaderboard(false)
+            props.leaderboard(false)
           else if (props.title == "How to play!")
             props.help(false);
           //console.log(props.title);

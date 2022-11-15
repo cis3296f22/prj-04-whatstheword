@@ -146,12 +146,41 @@
   background-color: rgb(126 34 206);
 }
 
-
-.sub-settings {
-  text-align: center;
-}
-
+/* Grid Container */
 .grid-container {
   display: grid;
   grid-template-columns: auto auto auto;
+  align-items: center;
 }
+
+.grid-container-two {
+  display: grid;
+  grid-template-columns: auto auto;
+  align-items: center;
+}
+
+/* Dropdown Menu */
+.dropdown-item {
+  display: block;
+  background-color: white;
+  padding: 1em;
+  text-align: center;
+  cursor: pointer;
+
+  font-weight: bold;
+  transition: .5s;
+}
+
+.dropdown-item:hover {
+  background-color: lightgray;
+}
+
+.dropdown-item-child {
+  background-color: lightgray;
+  transition: .5s;
+}
+
+.dropdown-item-child:hover {
+  background-color: gray;
+}
+

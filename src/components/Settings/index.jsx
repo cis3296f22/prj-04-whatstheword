@@ -1,7 +1,24 @@
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import SettingsIcon from "@mui/icons-material/Settings";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+/*function Dropdown(props) {
+  const[parent, setParent] = useState(false);
+  const[child, setChild] = useState(false);
+  const [show, setShow] = useState(false);
+
+  useEffect(() => {
+    if (props.title.onClick())
+      setShow(true);
+    else 
+      setShow(false);
+  })
+
+  return {
+    
+  }
+}*/
 
 function Settings(props) {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -51,9 +68,11 @@ function Settings(props) {
       />
       <Menu anchorEl={anchorEl} open={open} onClose={handleClose} style={{
           minWidth: "90em",
-          maxWidth: "101em"
+          maxWidth: "101em",
         }}>
-      <div className="sub-settings">Themes</div>
+      <div 
+        className="dropdown-item">Themes</div>
+        <div className="dropdown-item-child">
         <Button
           className="pl-3.5 text-slate-600" 
           style={{
@@ -90,25 +109,15 @@ function Settings(props) {
           variant="contained"
           onClick={purpleHandleChange}
         ></Button>
-        <div className="sub-settings">Leaderboard</div>
-        <div className="container">
-          <Button
-            className="pl-3.5 text-slate-600" 
-            style={{
-              margin: "1em"
-            }}
-            variant="contained"
-            onClick={leaderboardChange}
-          >Personal</Button>
-          <Button
-            className="pl-3.5 text-slate-600" 
-            style={{
-              margin: "1em"
-            }}
-            variant="contained"
-            onClick={leaderboardChange}
-          >WorldWide</Button>
         </div>
+        <div className="dropdown-item">Leaderboard</div>
+        <div className="dropdown-item dropdown-item-child" 
+            onClick={leaderboardChange}
+          >Personal</div>
+        <div className="dropdown-item dropdown-item-child" 
+            onClick={leaderboardChange}
+          >Worldwide</div>
+        <div className="dropdown-item">Quit</div>
       </Menu>
     </div>
   );
