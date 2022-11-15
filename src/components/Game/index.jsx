@@ -7,6 +7,7 @@ import Modal from "../Modal";
 import NavBar from "../NavBar";
 import styles from "./style.module.css";
 
+// Putting the WhatstheWord Game together, using the other components (Board, Keyboard, etc) together
 function Game(props) {
   const [letter, setLetter] = useState();
   const [changed, setChanged] = useState(false);
@@ -15,7 +16,12 @@ function Game(props) {
   const [clicked, setClicked] = useState(0);
   const [error, setError] = useState("");
   const [dark, setDark] = useState(false);
+  const [blue, setBlue] = useState(false);
+  const [red, setRed] = useState(false);
+  const [purple, setPurple] = useState(false);
 
+
+  // Putting the input, the letters, in order to guess and enter the word
   const onClickDown = (event) => {
     if (event.key == "Enter") {
       setLetter("ENTER");
@@ -39,6 +45,19 @@ function Game(props) {
     props.darkness(dark);
   }, [dark]);
 
+  useEffect(() => {
+    props.blueness(blue);
+  }, [blue]);
+
+  useEffect(() => {
+    props.redness(red);
+  }, [red]);
+
+  useEffect(() => {
+    props.purpleness(purple);
+  }, [purple]);
+
+  // Color change for the letters entered in for board and displayed keyoard
   const keyHandler = (letterValue) => {
     setLetter(letterValue);
     setClicked(clicked + 1);
@@ -57,7 +76,7 @@ function Game(props) {
       )}
       {error && <Error>{error}</Error>}
       <div className={styles.game}>
-        <NavBar help={setHelp} darkness={setDark} dark={dark} />
+        <NavBar help={setHelp} darkness={setDark} dark={dark} blueness={setBlue} blue={blue} redness={setRed} red={red} purpleness={setPurple} purple={purple} />
         <hr />
         <Board
           letter={letter}

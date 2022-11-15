@@ -1,5 +1,6 @@
 import CloseIcon from "@mui/icons-material/Close";
 
+// Affects the 'How to play' button 
 function Modal(props) {
   return (
     <div className="absolute w-full h-full grid place-cente">

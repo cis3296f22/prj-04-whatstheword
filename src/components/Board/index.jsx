@@ -25,6 +25,13 @@ const generateDefaultBoard = (wordLength) => {
   return defaultBoard;
 };
 
+// const letter --> the clickable text (Delete, Enter)
+// const board --> the display of the board (Connected with row)
+// const changed --> changes to the board
+// const row --> the rows of the board
+// const col --> The current attempt of word
+// const message --> Relays message to display
+
 function Board(props) {
   const [wordLength, setWordLength] = useState(DEFAULT_WORD_LENGTH);
   const [correctWord, setCorrectWord] = useState(chooseCorrectWord(wordLength));
@@ -47,7 +54,9 @@ function Board(props) {
   // Set initial value to undefined, since validation hasn't run yet
   const [valid, setValid] = useState(undefined);
 
+
   // Keep existing Effect hook
+
   useEffect(() => {
     console.log("Clicks effect hook");
     // Create an async function that can await fetch() & response.json() calls
@@ -96,8 +105,10 @@ function Board(props) {
               }
             } else {
               if (props.letter === "ENTER") {
+
                 // Call async function defined above
                 checkWord(prevBoard);
+
               }
             }
             return prevBoard;
@@ -168,7 +179,7 @@ function Board(props) {
           </div>
         );
       })}
-      <div className=" grid place-items-center h-8 font-bold dark:text-white">
+      <div className=" grid place-items-center h-8 font-bold dark:text-white blue:text-yellow red:text-yellow purple:text-yellow">
         {lost || win ? message : ""}
       </div>
     </div>
