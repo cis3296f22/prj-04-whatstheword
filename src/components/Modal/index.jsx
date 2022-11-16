@@ -1,5 +1,6 @@
 import CloseIcon from "@mui/icons-material/Close";
 
+console.log("modal running");
 // Affects the 'How to play' button 
 function Modal(props) {
   return (

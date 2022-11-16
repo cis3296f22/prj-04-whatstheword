@@ -1,3 +1,4 @@
+console.log("error running");
 function Error(props) {
   return (
     <div className="absolute top-20 w-full grid place-items-center">

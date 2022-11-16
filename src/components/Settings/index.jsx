@@ -5,6 +5,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import { useState } from "react";
 import { Switch } from "@mui/material";
 
+console.log("settings running");
 function Settings(props) {
   const [anchorEl, setAnchorEl] = useState(null);
 

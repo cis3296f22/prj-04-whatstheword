@@ -6,7 +6,9 @@ import KeyBoard from "../KeyBoard";
 import Modal from "../Modal";
 import NavBar from "../NavBar";
 import styles from "./style.module.css";
+import Login from "../Login";
 
+console.log("game running");
 // Putting the WhatstheWord Game together, using the other components (Board, Keyboard, etc) together
 function Game(props) {
   const [letter, setLetter] = useState();
@@ -19,6 +21,7 @@ function Game(props) {
   const [blue, setBlue] = useState(false);
   const [red, setRed] = useState(false);
   const [purple, setPurple] = useState(false);
+  const [login, setLogin] = useState(false);
 
 
   // Putting the input, the letters, in order to guess and enter the word
@@ -74,9 +77,15 @@ function Game(props) {
           <Help />{" "}
         </Modal>
       )}
+      {login && (
+          <Modal title="Sign In" login={setLogin}>
+            {" "}
+            <Login />{" "}
+          </Modal>
+      )}
       {error && <Error>{error}</Error>}
       <div className={styles.game}>
-        <NavBar help={setHelp} darkness={setDark} dark={dark} blueness={setBlue} blue={blue} redness={setRed} red={red} purpleness={setPurple} purple={purple} />
+        <NavBar help={setHelp} login={setLogin} darkness={setDark} dark={dark} blueness={setBlue} blue={blue} redness={setRed} red={red} purpleness={setPurple} purple={purple} />
         <hr />
         <Board
           letter={letter}
