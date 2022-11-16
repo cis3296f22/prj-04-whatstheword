@@ -6,7 +6,6 @@ import KeyBoard from "../KeyBoard";
 import Modal from "../Modal";
 import NavBar from "../NavBar";
 import Leaderboard from "../Leaderboard";
-import Score from "../Score";
 import styles from "./style.module.css";
 
 // Putting the WhatstheWord Game together, using the other components (Board, Keyboard, etc) together

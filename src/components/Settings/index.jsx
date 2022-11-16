@@ -3,25 +3,10 @@ import Menu from "@mui/material/Menu";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { useEffect, useState } from "react";
 
-/*function Dropdown(props) {
-  const[parent, setParent] = useState(false);
-  const[child, setChild] = useState(false);
-  const [show, setShow] = useState(false);
-
-  useEffect(() => {
-    if (props.title.onClick())
-      setShow(true);
-    else 
-      setShow(false);
-  })
-
-  return {
-    
-  }
-}*/
-
 function Settings(props) {
   const [anchorEl, setAnchorEl] = useState(null);
+  const [show, setShow] = useState(false);
+  const [show2, setShow2] = useState(false);
 
   const leaderboardChange = () => {
     props.leaderboard(true);
@@ -67,56 +52,57 @@ function Settings(props) {
         className="text-black dark:text-white blue:text-yellow red:text-yellow purple:text-yellow"
       />
       <Menu anchorEl={anchorEl} open={open} onClose={handleClose} style={{
-          minWidth: "90em",
-          maxWidth: "101em",
+
         }}>
       <div 
-        className="dropdown-item">Themes</div>
-        <div className="dropdown-item-child">
-        <Button
-          className="pl-3.5 text-slate-600" 
-          style={{
-            backgroundColor: "#27272A",
-            margin: "1em"
-          }}
-          variant="contained"
-          onClick={darkHandleChange}
-        ></Button>
-        <Button
-          className="pl-3.5 text-slate-600" 
-          style={{
-            backgroundColor: "rgb(17 94 89)",
-            margin: "1em"
-          }}
-          variant="contained"
-          onClick={blueHandleChange}
-        ></Button>
-        <Button
-          className="pl-3.5 text-slate-600" 
-          style={{
-            backgroundColor: "rgb(153 27 27)",
-            margin: "1em"
-          }}
-          variant="contained"
-          onClick={redHandleChange}
-        ></Button>
-        <Button
-          className="pl-3.5 text-slate-600" 
-          style={{
-            backgroundColor: "rgb(107 33 168)",
-            margin: "1em"
-          }}
-          variant="contained"
-          onClick={purpleHandleChange}
-        ></Button>
-        </div>
-        <div className="dropdown-item">Leaderboard</div>
-        <div className="dropdown-item dropdown-item-child" 
-            onClick={leaderboardChange}
-          >Personal</div>
-        <div className="dropdown-item dropdown-item-child" 
-            onClick={leaderboardChange}
-          >Worldwide</div>
+        className="dropdown-item" onClick={() => setShow(!show)}>Themes</div>
+        {
+          show?<div className="dropdown-item-child grid-container">
+            <div className="grid-container">
+              <div
+                className="pl-3.5 text-slate-600 button-size" 
+                style={{
+                  backgroundColor: "#27272A",
+                  margin: ".75em"
+                }}
+                onClick={darkHandleChange}
+              ></div>
+              <div
+                className="pl-3.5 text-slate-600 button-size" 
+                style={{
+                  backgroundColor: "rgb(17 94 89)",
+                  margin: ".75em"
+                }}
+                onClick={blueHandleChange}
+              ></div>
+              <div
+                className="pl-3.5 text-slate-600 button-size" 
+                style={{
+                  backgroundColor: "rgb(153 27 27)",
+                  margin: ".75em"
+                }}
+                onClick={redHandleChange}
+              ></div>
+              <div
+                className="pl-3.5 text-slate-600 button-size" 
+                style={{
+                  backgroundColor: "rgb(107 33 168)",
+                  margin: ".75em"
+                }}
+                onClick={purpleHandleChange}
+              ></div>
+            </div>
+          </div>:null
+        }
+        <div className="dropdown-item" onClick={() => setShow2(!show2)}>Leaderboard</div>
+          {show2?<div>
+            <div className="dropdown-item dropdown-item-child" 
+                onClick={leaderboardChange}
+              >Personal</div>
+            <div className="dropdown-item dropdown-item-child" 
+                onClick={leaderboardChange}
+              >Worldwide</div>
+          </div>:null}
         <div className="dropdown-item">Quit</div>
       </Menu>
     </div>

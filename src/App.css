@@ -151,6 +151,7 @@
   display: grid;
   grid-template-columns: auto auto auto;
   align-items: center;
+  margin: auto;
 }
 
 .grid-container-two {
@@ -178,9 +179,21 @@
 .dropdown-item-child {
   background-color: lightgray;
   transition: .5s;
+  display: grid;
+  grid-template-columns: auto;
 }
 
 .dropdown-item-child:hover {
-  background-color: gray;
+  background-color: #AEB6BF ;
 }
 
+.button-size:hover {
+  border: 1px solid lightblue;
+}
+
+.button-size {
+  width: 1em;
+  height: 1em;
+  border-radius: 3px;
+  cursor: pointer;
+}

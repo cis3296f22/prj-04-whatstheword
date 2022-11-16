@@ -87,7 +87,10 @@ function Board(props) {
                     setAttempts(attempts + 1); 
                     if (row === 5) {
                       setLost(true);
-                      setScore(0); //
+                      scoring = score + 10;
+                      setScore(scoring);
+                      console.log("Score: " + scoring);
+                      console.log("Attempts: " + attempts);
                       setTimeout(() => {
                         setMessage(`It was ${correct}`);
                       }, 750);
