@@ -54,7 +54,7 @@ function App() {
     }
     else document.documentElement.classList.remove("purple");
   };
-  
+
   return (
     <div className={"app dark:bg-zinc-800 blue:blue-dark red:red-dark purple:purple-dark"}> 
       <Game darkness={darkHandler} blueness={blueHandler} redness={redHandler} purpleness={purpleHandler} />
