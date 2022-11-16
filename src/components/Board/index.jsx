@@ -44,7 +44,7 @@ function Board(props) {
     console.log("setting newCorrectWord:", newCorrectWord);
     setCorrectWord(newCorrectWord);
   }, [wordLength]);
-  
+
   const [letters, setLetters] = useState(defaultLetters);
   const [changed, setChanged] = useState(false);
   const [row, setRow] = useState(0);
