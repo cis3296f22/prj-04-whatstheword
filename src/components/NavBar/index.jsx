@@ -24,7 +24,8 @@ function NavBar(props) {
           props.help(true);
         }}
       />
-      <Settings darkness={props.darkness} dark={props.dark} blueness={props.blueness} blue={props.blue} redness={props.redness} red={props.red} purpleness={props.purpleness} purple={props.purple} />
+      <Settings darkness={props.darkness} dark={props.dark} blueness={props.blueness} blue={props.blue} redness={props.redness} red={props.red} purpleness={props.purpleness} purple={props.purple} leaderboard={props.leaderboard} />
+
     </div>
   );
 }

@@ -14,7 +14,11 @@ function Modal(props) {
           <h2 className="font-black text-2xl">{props.title}</h2>
           <CloseIcon
             onClick={() => {
-              props.help(false);
+              if (props.title == "Personal Leaderboard")
+                props.leaderboard(false)
+              else if (props.title == "How to play!")
+                props.help(false);
+              //console.log(props.title);
             }}
           />
         </div>
@@ -25,7 +29,11 @@ function Modal(props) {
       <div
         className="z-0 absolute w-full h-full grid place-cente"
         onClick={() => {
-          props.help(false);
+          if (props.title == "Personal Leaderboard")
+            props.leaderboard(false)
+          else if (props.title == "How to play!")
+            props.help(false);
+          //console.log(props.title);
         }}
       />
     </div>

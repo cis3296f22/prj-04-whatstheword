@@ -145,3 +145,55 @@
 .purple .purple\:purple-keys:hover {
   background-color: rgb(126 34 206);
 }
+
+/* Grid Container */
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  align-items: center;
+  margin: auto;
+}
+
+.grid-container-two {
+  display: grid;
+  grid-template-columns: auto auto;
+  align-items: center;
+}
+
+/* Dropdown Menu */
+.dropdown-item {
+  display: block;
+  background-color: white;
+  padding: 1em;
+  text-align: center;
+  cursor: pointer;
+
+  font-weight: bold;
+  transition: .5s;
+}
+
+.dropdown-item:hover {
+  background-color: lightgray;
+}
+
+.dropdown-item-child {
+  background-color: lightgray;
+  transition: .5s;
+  display: grid;
+  grid-template-columns: auto;
+}
+
+.dropdown-item-child:hover {
+  background-color: #AEB6BF ;
+}
+
+.button-size:hover {
+  border: 1px solid lightblue;
+}
+
+.button-size {
+  width: 1em;
+  height: 1em;
+  border-radius: 3px;
+  cursor: pointer;
+}
