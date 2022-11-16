@@ -1,15 +1,21 @@
-import { useState, useEffect } from "react";
+import { useCallback, useState, useEffect } from "react";
 import Board from "../Board";
 import Error from "../Error";
 import Help from "../Help";
 import KeyBoard from "../KeyBoard";
+import Menu from "../Menu";
 import Modal from "../Modal";
 import NavBar from "../NavBar";
 import Leaderboard from "../Leaderboard";
 import styles from "./style.module.css";
+import { useMainMenu } from "./useMainMenu";
+
+const DEFAULT_WORD_LENGTH = 5;
 
 // Putting the WhatstheWord Game together, using the other components (Board, Keyboard, etc) together
 function Game(props) {
+  const [mainMenu, setMainMenu, hideMainMenu] = useMainMenu();
+  const [length, setLength] = useState(DEFAULT_WORD_LENGTH);
   const [letter, setLetter] = useState();
   const [changed, setChanged] = useState(false);
   const [letters, setLetters] = useState({});
@@ -23,6 +29,18 @@ function Game(props) {
   const [purple, setPurple] = useState(false);
   const[score, setScore] = useState(0);
 
+  const start = () => hideMainMenu();
+
+  // Changes length of word
+  const changeLength4 = () => {
+    setLength(4);
+  }
+  const changeLength5 = () => {
+    setLength(5);
+  }
+  const changeLength6 = () => {
+    setLength(6);
+  }
 
   // Putting the input, the letters, in order to guess and enter the word
   const onClickDown = (event) => {
@@ -87,16 +105,25 @@ function Game(props) {
 
       {error && <Error>{error}</Error>}
       <div className={styles.game}>
+
         <NavBar help={setHelp} leaderboard={setLeaderboard} darkness={setDark} dark={dark} blueness={setBlue} blue={blue} redness={setRed} red={red} purpleness={setPurple} purple={purple} />
-        <hr />
-        <Board
-          letter={letter}
-          clicks={clicked}
-          letters={LettersHandler}
-          error={setError}
-          score={setScore}
-        />
-        <KeyBoard keyHandler={keyHandler} letters={letters} changed={changed} />
+        {mainMenu ? (
+          <div>
+            <Menu onClick={start} changeLength4={changeLength4} changeLength5={changeLength5} changeLength6={changeLength6}/>
+          </div>
+        ) : (
+          <div>
+            <hr />
+            <Board
+              length={length}
+              letter={letter}
+              clicks={clicked}
+              letters={LettersHandler}
+              error={setError}
+            />
+            <KeyBoard keyHandler={keyHandler} letters={letters} changed={changed} />
+          </div>
+        )}
       </div>
     </>
   );
