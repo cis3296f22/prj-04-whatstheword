@@ -32,7 +32,7 @@ const generateDefaultBoard = (wordLength) => {
 // const message --> Relays message to display
 
 function Board(props) {
-  const [wordLength, setWordLength] = useState(props.length)
+  const [wordLength, setWordLength] = useState(props.length);
   const [correctWord, setCorrectWord] = useState(chooseCorrectWord(wordLength));
   const [board, setBoard] = useState(generateDefaultBoard(wordLength));
   useEffect(() => {
@@ -81,7 +81,7 @@ function Board(props) {
         setValid(true);
       }
     };
-    
+
     if (win || lost) {
       console.log("Game ended!");
     } else {
@@ -100,17 +100,15 @@ function Board(props) {
                 setCol(col + 1);
                 setValid(undefined);
               } else {
-                props.error("Words are ${wordLength} letters long!");
+                props.error(`Words are ${wordLength} letters long!`);
                 setTimeout(() => {
                   props.error("");
                 }, 1000);
               }
             } else {
               if (props.letter === "ENTER") {
-                
                 // Call async function defined above
                 checkWord(prevBoard);
-
               }
             }
             return prevBoard;
@@ -136,10 +134,10 @@ function Board(props) {
           prevBoard[row][i][1] = "E";
         else prevBoard[row][i][1] = "N";
         setRow(row + 1);
-        setAttempts(attempts + 1); 
+        setAttempts(attempts + 1);
         if (row === wordLength) {
           setLost(true);
-          setScore(0); 
+          setScore(0);
           console.log("Score: " + scoring);
           console.log("Attempts: " + attempts);
           setTimeout(() => {
@@ -158,30 +156,30 @@ function Board(props) {
       if (correctLetters === wordLength) {
         setWin(true);
         switch (attempts) {
-          case 1: 
-              scoring = score + 300;
-              setScore(scoring);
-              break;
-          case 2: 
-              scoring = score + 250;
-              setScore(scoring);
-              break;
-          case 3: 
-              scoring = score + 200;
-              setScore(scoring);
-              break;
-          case 4: 
-              scoring = score + 150;
-              setScore(scoring);
-              break;
-          case 5: 
-              scoring = score + 100;
-              setScore(scoring);
-              break;
+          case 1:
+            scoring = score + 300;
+            setScore(scoring);
+            break;
+          case 2:
+            scoring = score + 250;
+            setScore(scoring);
+            break;
+          case 3:
+            scoring = score + 200;
+            setScore(scoring);
+            break;
+          case 4:
+            scoring = score + 150;
+            setScore(scoring);
+            break;
+          case 5:
+            scoring = score + 100;
+            setScore(scoring);
+            break;
           case 6:
-              scoring = score + 50;
-              setScore(scoring);
-              break;
+            scoring = score + 50;
+            setScore(scoring);
+            break;
         }
         console.log("Score: " + scoring);
         console.log("Attempts: " + attempts);
@@ -202,12 +200,9 @@ function Board(props) {
     props.letters(letters);
   }, [changed]);
 
-
   return (
     <div className="px-10 py-5 grid gap-y-1 items-center w-100 justify-center">
-      <Score
-          score={score} attempts={attempts}
-        />
+      <Score score={score} attempts={attempts} />
       {board.map((row, key) => {
         return (
           <div key={key} className="flex gap-1 w-fit">
@@ -218,7 +213,6 @@ function Board(props) {
         );
       })}
       <div className=" grid place-items-center h-8 font-bold dark:text-white blue:text-yellow red:text-yellow purple:text-yellow">
-      
         {lost || win ? message : ""}
       </div>
     </div>
