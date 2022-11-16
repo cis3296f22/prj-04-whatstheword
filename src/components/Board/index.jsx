@@ -2,8 +2,6 @@ import { useEffect, useState } from "react";
 import Box from "../Box";
 import words from "../../words";
 
-const DEFAULT_WORD_LENGTH = 5;
-
 const defaultLetters = [];
 "abcdefghijklmnopqrstuvwxyz".split("").forEach((i) => {
   defaultLetters[i] = "";
@@ -33,7 +31,7 @@ const generateDefaultBoard = (wordLength) => {
 // const message --> Relays message to display
 
 function Board(props) {
-  const [wordLength, setWordLength] = useState(DEFAULT_WORD_LENGTH);
+  const [wordLength, setWordLength] = useState(props.length)
   const [correctWord, setCorrectWord] = useState(chooseCorrectWord(wordLength));
   const [board, setBoard] = useState(generateDefaultBoard(wordLength));
   useEffect(() => {

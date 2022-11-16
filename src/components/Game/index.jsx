@@ -9,9 +9,12 @@ import NavBar from "../NavBar";
 import styles from "./style.module.css";
 import { useMainMenu } from "./useMainMenu";
 
+const DEFAULT_WORD_LENGTH = 5;
+
 // Putting the WhatstheWord Game together, using the other components (Board, Keyboard, etc) together
 function Game(props) {
   const [mainMenu, setMainMenu, hideMainMenu] = useMainMenu();
+  const [length, setLength] = useState(DEFAULT_WORD_LENGTH);
   const [letter, setLetter] = useState();
   const [changed, setChanged] = useState(false);
   const [letters, setLetters] = useState({});
@@ -24,6 +27,17 @@ function Game(props) {
   const [purple, setPurple] = useState(false);
 
   const start = () => hideMainMenu();
+
+  // Changes length of word
+  const changeLength4 = () => {
+    setLength(4);
+  }
+  const changeLength5 = () => {
+    setLength(5);
+  }
+  const changeLength6 = () => {
+    setLength(6);
+  }
 
   // Putting the input, the letters, in order to guess and enter the word
   const onClickDown = (event) => {
@@ -83,12 +97,13 @@ function Game(props) {
         <NavBar help={setHelp} darkness={setDark} dark={dark} blueness={setBlue} blue={blue} redness={setRed} red={red} purpleness={setPurple} purple={purple} />
         {mainMenu ? (
           <div>
-            <Menu onClick={start}/>
+            <Menu onClick={start} changeLength4={changeLength4} changeLength5={changeLength5} changeLength6={changeLength6}/>
           </div>
         ) : (
           <div>
             <hr />
             <Board
+              length={length}
               letter={letter}
               clicks={clicked}
               letters={LettersHandler}
