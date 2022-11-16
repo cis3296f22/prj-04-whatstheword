@@ -1,5 +1,6 @@
 import CloseIcon from "@mui/icons-material/Close";
 
+console.log("modal running");
 // Affects the 'How to play' button 
 function Modal(props) {
   return (
@@ -13,11 +14,13 @@ function Modal(props) {
           <h2 className="font-black text-2xl">{props.title}</h2>
           <CloseIcon
             onClick={() => {
-              if (props.title == "Personal Leaderboard")
+              if (props.title === "Personal Leaderboard")
                 props.leaderboard(false)
-              else if (props.title == "How to play!")
+              else if (props.title === "How to play!")
                 props.help(false);
               //console.log(props.title);
+              else if (props.title === "Sign In")
+                  props.login(false);
             }}
           />
         </div>
@@ -28,11 +31,13 @@ function Modal(props) {
       <div
         className="z-0 absolute w-full h-full grid place-cente"
         onClick={() => {
-          if (props.title == "Personal Leaderboard")
+          if (props.title === "Personal Leaderboard")
             props.leaderboard(false)
-          else if (props.title == "How to play!")
+          else if (props.title === "How to play!")
             props.help(false);
           //console.log(props.title);
+          else if (props.title === "Sign In")
+              props.login(false);
         }}
       />
     </div>

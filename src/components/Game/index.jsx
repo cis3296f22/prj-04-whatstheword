@@ -8,10 +8,12 @@ import Modal from "../Modal";
 import NavBar from "../NavBar";
 import Leaderboard from "../Leaderboard";
 import styles from "./style.module.css";
+import Login from "../Login";
 import { useMainMenu } from "./useMainMenu";
 
 const DEFAULT_WORD_LENGTH = 5;
 
+console.log("game running");
 // Putting the WhatstheWord Game together, using the other components (Board, Keyboard, etc) together
 function Game(props) {
   const [mainMenu, setMainMenu, hideMainMenu] = useMainMenu();
@@ -27,6 +29,7 @@ function Game(props) {
   const [blue, setBlue] = useState(false);
   const [red, setRed] = useState(false);
   const [purple, setPurple] = useState(false);
+  const [login, setLogin] = useState(false);
   const[score, setScore] = useState(0);
 
   const start = () => hideMainMenu();
@@ -96,6 +99,12 @@ function Game(props) {
         </Modal>
       )}
 
+      {login && (
+        <Modal title="Sign In" login={setLogin}>
+          {" "}
+          <Login />{" "}
+        </Modal>
+      )}
       {leaderboard && (
         <Modal title="Personal Leaderboard" leaderboard={setLeaderboard}>
           {" "}
@@ -106,7 +115,7 @@ function Game(props) {
       {error && <Error>{error}</Error>}
       <div className={styles.game}>
 
-        <NavBar help={setHelp} leaderboard={setLeaderboard} darkness={setDark} dark={dark} blueness={setBlue} blue={blue} redness={setRed} red={red} purpleness={setPurple} purple={purple} />
+        <NavBar help={setHelp} login={setLogin} leaderboard={setLeaderboard} darkness={setDark} dark={dark} blueness={setBlue} blue={blue} redness={setRed} red={red} purpleness={setPurple} purple={purple} />
         {mainMenu ? (
           <div>
             <Menu onClick={start} changeLength4={changeLength4} changeLength5={changeLength5} changeLength6={changeLength6}/>

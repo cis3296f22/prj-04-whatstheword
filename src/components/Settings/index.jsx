@@ -3,6 +3,7 @@ import Menu from "@mui/material/Menu";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { useEffect, useState } from "react";
 
+console.log("settings running");
 function Settings(props) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [show, setShow] = useState(false);

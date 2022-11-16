@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import BackspaceIcon from "@mui/icons-material/Backspace";
 
+console.log("box running");
 // Properties of the game board (color)
 function Box(props) {
   const [state, setState] = useState("text-black border-2 border-gray-300 dark:text-white blue:text-yellow red:text-yellow purple:text-yellow rounded");

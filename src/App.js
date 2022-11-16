@@ -6,6 +6,7 @@ import Game from "./components/Game";
 // Game is from the Game Class is the main component for WhatsTheWord to run 
 
 function App() {
+  console.log("app running");
   const darkHandler = (dark) => {
     if (dark) {
       //remove all other color schemes

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import BackspaceIcon from "@mui/icons-material/Backspace";
 
+console.log("keyboard running");
 const keyboard = {
   line1: "QWERTYUIOP",
   line2: "ASDFGHJKL",
