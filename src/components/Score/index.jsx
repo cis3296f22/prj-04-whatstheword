@@ -6,7 +6,7 @@ function Score(props) {
 
     return (
         <div className="pb-5 font-medium grid-container-two dark:text-white blue:text-yellow red:text-yellow purple:text-yellow">
-            <div>Score -  <b>{props.score}</b></div>
+            <div data-testid="game-display">Score -  <b>{props.score}</b></div>
             <div>Attempts - <b>{props.attempts}</b></div>
         </div>
     );
