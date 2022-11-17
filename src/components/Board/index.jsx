@@ -205,7 +205,7 @@ function Board(props) {
       <Score score={score} attempts={attempts} />
       {board.map((row, key) => {
         return (
-          <div key={key} className="flex gap-1 w-fit">
+          <div key={key} className="flex gap-1 w-fit" data-testid="row">
             {row.map((value, key) => (
               <Box key={key} value={value[0]} state={value[1]} pos={key} />
             ))}
