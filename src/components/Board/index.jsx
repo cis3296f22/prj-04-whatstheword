@@ -8,7 +8,7 @@ const defaultLetters = [];
   defaultLetters[i] = "";
 });
 
-const chooseCorrectWord = (wordLength) => {
+export const chooseCorrectWord = (wordLength) => {
   const wordIndex = Math.round(Math.random() * (words[wordLength].length - 1));
   return words[wordLength][wordIndex].toUpperCase();
 };
