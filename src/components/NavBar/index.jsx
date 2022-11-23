@@ -21,7 +21,7 @@ function NavBar(props) {
       <h1 className="text-3xl font-bold tracking-wider">What's The Word</h1>
       <BarChartIcon
         onClick={() => {
-          props.help(true);
+          props.leaderboard(true);
         }}
       />
       <Settings darkness={props.darkness} dark={props.dark} blueness={props.blueness} blue={props.blue} redness={props.redness} red={props.red} purpleness={props.purpleness} purple={props.purple} leaderboard={props.leaderboard} />

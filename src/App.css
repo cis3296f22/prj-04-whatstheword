@@ -197,3 +197,7 @@
   border-radius: 3px;
   cursor: pointer;
 }
+
+.game-over {
+  padding-top: 0.4em;
+}
