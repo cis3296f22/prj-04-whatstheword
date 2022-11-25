@@ -31,6 +31,11 @@ function Key(props) {
       if (props.state === "C") setState("bg-correct text-white");
       if (props.state === "E") setState("bg-exist text-white");
       if (props.state === "N") setState("bg-wrong text-white dark:bg-gray-600");
+      if (props.state === "R") 
+      {
+        if (props.state === "C" || props.state === "E" || props.state === "N")
+          setState("bg-gray-200 text-white");
+      }
     }, 350);
   }, [props.state]);
 

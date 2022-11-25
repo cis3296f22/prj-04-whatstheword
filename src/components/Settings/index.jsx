@@ -1,6 +1,7 @@
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import SettingsIcon from "@mui/icons-material/Settings";
+import Board from "../Board";
 import { useEffect, useState } from "react";
 
 console.log("settings running");
@@ -8,6 +9,19 @@ function Settings(props) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [show, setShow] = useState(false);
   const [show2, setShow2] = useState(false);
+  const [score, setScore] = useState(props.score);
+  const [toQuit, setToQuit] = useState(false);
+
+  const handleResetClick = (boo, value) => {
+    setToQuit(boo);
+    console.log("From Game! toQuit: " + toQuit)
+    if (toQuit == true) 
+    {
+      //setScore(value);
+      //<Board score={score} />
+      window.location.reload(false); 
+    }
+  }
 
   const leaderboardChange = () => {
     props.leaderboard(true);
@@ -104,7 +118,9 @@ function Settings(props) {
                 onClick={leaderboardChange}
               >Worldwide</div>
           </div>:null}
-        <div className="dropdown-item">Quit</div>
+        <div className="dropdown-item"
+          onClick={event => handleResetClick(true, 0)}
+        >Quit</div>
       </Menu>
     </div>
   );

@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Box from "../Box";
 import Score from "../Score";
 import words from "../../words";
+import PlayAgain from "../PlayAgain"
+import Reset from "../Reset";
 
 const defaultLetters = [];
 "abcdefghijklmnopqrstuvwxyz".split("").forEach((i) => {
@@ -13,7 +15,7 @@ export const chooseCorrectWord = (wordLength) => {
   return words[wordLength][wordIndex].toUpperCase();
 };
 
-const generateDefaultBoard = (wordLength) => {
+export const generateDefaultBoard = (wordLength) => {
   const defaultBoard = [];
   for (let i = 0; i < wordLength + 1; i++) {
     defaultBoard.push([]);
@@ -50,14 +52,48 @@ function Board(props) {
   const [win, setWin] = useState(false);
   const [lost, setLost] = useState(false);
   const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
+  const [clicked, setClicked] = useState(0);
+  const [letter, setLetter] = useState();
   // Set initial value to undefined, since validation hasn't run yet
   const [valid, setValid] = useState(undefined);
   // Scoring feature
-  const [attempts, setAttempts] = useState(1);
-  const [score, setScore] = useState(0);
+  const [score, setScore] = useState(props.score);
+  const [attempts, setAttempts] = useState(props.attempts);
   var scoring = 0;
+  // Play Again Feature
+  const [displayPlayAgain, setDisplayPlayAgain] = useState(false);
+  const [toPlayAgain, setToPlayAgain] = useState(false);
+  const [toQuit, setToQuit] = useState(false);
 
-  // Keep existing Effect hook
+
+  const handlePlayAgainClick = (boo) => {
+    setToPlayAgain(boo);
+    console.log("From Game! toPlayAgain: " + toPlayAgain)
+    if (toPlayAgain == true) 
+      {
+        console.log("IT IS TRUE");
+        window.location.reload(false);
+      }
+      else return;
+  }
+
+  const handleResetClick = (boo, value) => {
+    setToQuit(boo);
+    console.log("From Game! toQuit: " + toQuit)
+    if (toQuit == true)                                                                                            
+      {
+        setScore(value);
+        setAttempts(value);
+        window.location.reload(false);
+      }
+      else return;
+  }
+
+  const handleScoreResetClick = (value) => {
+    setScore(value);
+    setAttempts(value);
+  }
 
   useEffect(() => {
     console.log("Clicks effect hook");
@@ -84,6 +120,10 @@ function Board(props) {
 
     if (win || lost) {
       console.log("Game ended!");
+      if (toPlayAgain == true) 
+      {
+        return (<Board/>)
+      }
     } else {
       if (props.clicks !== 0) {
         if (props.letter === "DEL") {
@@ -139,9 +179,10 @@ function Board(props) {
           setLost(true);
           setScore(0);
           console.log("Score: " + scoring);
-          console.log("Attempts: " + attempts);
+          console.log("Attempts: " + (attempts + 1));
           setTimeout(() => {
             setMessage(`It was ${correctWord}`);
+            setDisplayPlayAgain(true);
           }, 750);
         }
 
@@ -155,36 +196,93 @@ function Board(props) {
 
       if (correctLetters === wordLength) {
         setWin(true);
-        switch (attempts) {
-          case 1:
-            scoring = score + 300;
-            setScore(scoring);
-            break;
-          case 2:
-            scoring = score + 250;
-            setScore(scoring);
-            break;
-          case 3:
-            scoring = score + 200;
-            setScore(scoring);
-            break;
-          case 4:
-            scoring = score + 150;
-            setScore(scoring);
-            break;
-          case 5:
-            scoring = score + 100;
-            setScore(scoring);
-            break;
-          case 6:
-            scoring = score + 50;
-            setScore(scoring);
-            break;
-        }
+
+        if (wordLength == 4)
+          switch (attempts) {
+            case 0:
+              scoring = score + 150;
+              setScore(scoring);
+              break;
+            case 1:
+              scoring = score + 100;
+              setScore(scoring);
+              break;
+            case 2:
+              scoring = score + 50;
+              setScore(scoring);
+              break;
+            case 3:
+              scoring = score + 25;
+              setScore(scoring);
+              break;
+            case 4:
+              scoring = score + 10;
+              setScore(scoring);
+              break;
+          }
+        else if (wordLength == 5)
+          switch (attempts) {
+            case 0:
+              scoring = score + 300;
+              setScore(scoring);
+              break;
+            case 1:
+              scoring = score + 250;
+              setScore(scoring);
+              break;
+            case 2:
+              scoring = score + 200;
+              setScore(scoring);
+              break;
+            case 3:
+              scoring = score + 150;
+              setScore(scoring);
+              break;
+            case 4:
+              scoring = score + 100;
+              setScore(scoring);
+              break;
+            case 5:
+              scoring = score + 50;
+              setScore(scoring);
+              break;
+          }
+          else if (wordLength == 6)
+            switch (attempts) {
+              case 0:
+                scoring = score + 400;
+                setScore(scoring);
+                break;
+              case 1:
+                scoring = score + 300;
+                setScore(scoring);
+                break;
+              case 2:
+                scoring = score + 250;
+                setScore(scoring);
+                break;
+              case 3:
+                scoring = score + 200;
+                setScore(scoring);
+                break;
+              case 4:
+                scoring = score + 150;
+                setScore(scoring);
+                break;
+              case 5:
+                scoring = score + 100;
+                setScore(scoring);
+                break;
+              case 6:
+                scoring = score + 50;
+                setScore(scoring);
+                break;
+            }
         console.log("Score: " + scoring);
-        console.log("Attempts: " + attempts);
+        console.log("Attempts: " + (attempts + 1));
         setTimeout(() => {
           setMessage("You WIN");
+          setDisplayPlayAgain(true);
         }, 750);
       }
       return prevBoard;
@@ -200,6 +298,15 @@ function Board(props) {
     props.letters(letters);
   }, [changed]);
 
+  useEffect(() => {
+    setScore(JSON.parse(window.localStorage.getItem('score')));
+    //if (correctLetters === wordLength)
+  }, []);
+
+  useEffect(() => {
+    window.localStorage.setItem('score', score);
+  }, [score]);
+
   return (
     <div className="px-10 py-5 grid gap-y-1 items-center w-100 justify-center">
       <Score score={score} attempts={attempts} />
@@ -212,9 +319,14 @@ function Board(props) {
           </div>
         );
       })}
-      <div className=" grid place-items-center h-8 font-bold dark:text-white blue:text-yellow red:text-yellow purple:text-yellow">
+      <div className="grid place-items-center h-8 font-bold dark:text-white blue:text-yellow red:text-yellow purple:text-yellow">
         {lost || win ? message : ""}
       </div>
+      {displayPlayAgain ? 
+        <div> 
+          <PlayAgain handlePlayAgainClick={handlePlayAgainClick}/>
+          <Reset handleResetClick={handleResetClick} />
+        </div>: null}
     </div>
   );
 }
