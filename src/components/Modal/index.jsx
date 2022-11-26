@@ -21,6 +21,8 @@ function Modal(props) {
               //console.log(props.title);
               else if (props.title === "Sign In")
                   props.login(false);
+              else if(props.title === "Create Account")
+                  props.createAccount(false)
             }}
           />
         </div>
@@ -38,6 +40,8 @@ function Modal(props) {
           //console.log(props.title);
           else if (props.title === "Sign In")
               props.login(false);
+          else if(props.title === "Create Account")
+              props.createAccount(false)
         }}
       />
     </div>
