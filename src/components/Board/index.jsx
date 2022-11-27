@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import Box from "../Box";
 import Score from "../Score";
 import words from "../../words";
-import PlayAgain from "../PlayAgain"
+import PlayAgain from "../PlayAgain";
 import Reset from "../Reset";
 
 const defaultLetters = [];
@@ -66,34 +66,24 @@ function Board(props) {
   const [toPlayAgain, setToPlayAgain] = useState(false);
   const [toQuit, setToQuit] = useState(false);
 
+  useEffect(() => {
+    if (toPlayAgain === true) {
+      window.location.reload(false);
+    }
+  }, [toPlayAgain]);
 
-  const handlePlayAgainClick = (boo) => {
-    setToPlayAgain(boo);
-    console.log("From Game! toPlayAgain: " + toPlayAgain)
-    if (toPlayAgain == true) 
-      {
-        console.log("IT IS TRUE");
-        window.location.reload(false);
-      }
-      else return;
-  }
-
-  const handleResetClick = (boo, value) => {
-    setToQuit(boo);
-    console.log("From Game! toQuit: " + toQuit)
-    if (toQuit == true)                                                                                            
-      {
-        setScore(value);
-        setAttempts(value);
-        window.location.reload(false);
-      }
-      else return;
-  }
+  useEffect(() => {
+    if (toQuit === true) {
+      setScore(0);
+      setAttempts(0);
+      window.location.reload(false);
+    }
+  }, [toQuit]);
 
   const handleScoreResetClick = (value) => {
     setScore(value);
     setAttempts(value);
-  }
+  };
 
   useEffect(() => {
     console.log("Clicks effect hook");
@@ -120,9 +110,8 @@ function Board(props) {
 
     if (win || lost) {
       console.log("Game ended!");
-      if (toPlayAgain == true) 
-      {
-        return (<Board/>)
+      if (toPlayAgain == true) {
+        return <Board />;
       }
     } else {
       if (props.clicks !== 0) {
@@ -247,37 +236,37 @@ function Board(props) {
               setScore(scoring);
               break;
           }
-          else if (wordLength == 6)
-            switch (attempts) {
-              case 0:
-                scoring = score + 400;
-                setScore(scoring);
-                break;
-              case 1:
-                scoring = score + 300;
-                setScore(scoring);
-                break;
-              case 2:
-                scoring = score + 250;
-                setScore(scoring);
-                break;
-              case 3:
-                scoring = score + 200;
-                setScore(scoring);
-                break;
-              case 4:
-                scoring = score + 150;
-                setScore(scoring);
-                break;
-              case 5:
-                scoring = score + 100;
-                setScore(scoring);
-                break;
-              case 6:
-                scoring = score + 50;
-                setScore(scoring);
-                break;
-            }
+        else if (wordLength == 6)
+          switch (attempts) {
+            case 0:
+              scoring = score + 400;
+              setScore(scoring);
+              break;
+            case 1:
+              scoring = score + 300;
+              setScore(scoring);
+              break;
+            case 2:
+              scoring = score + 250;
+              setScore(scoring);
+              break;
+            case 3:
+              scoring = score + 200;
+              setScore(scoring);
+              break;
+            case 4:
+              scoring = score + 150;
+              setScore(scoring);
+              break;
+            case 5:
+              scoring = score + 100;
+              setScore(scoring);
+              break;
+            case 6:
+              scoring = score + 50;
+              setScore(scoring);
+              break;
+          }
         console.log("Score: " + scoring);
         console.log("Attempts: " + (attempts + 1));
         setTimeout(() => {
@@ -299,12 +288,12 @@ function Board(props) {
   }, [changed]);
 
   useEffect(() => {
-    setScore(JSON.parse(window.localStorage.getItem('score')));
+    setScore(JSON.parse(window.localStorage.getItem("score")));
     //if (correctLetters === wordLength)
   }, []);
 
   useEffect(() => {
-    window.localStorage.setItem('score', score);
+    window.localStorage.setItem("score", score);
   }, [score]);
 
   return (
@@ -322,11 +311,12 @@ function Board(props) {
       <div className="grid place-items-center h-8 font-bold dark:text-white blue:text-yellow red:text-yellow purple:text-yellow">
         {lost || win ? message : ""}
       </div>
-      {displayPlayAgain ? 
-        <div> 
-          <PlayAgain handlePlayAgainClick={handlePlayAgainClick}/>
-          <Reset handleResetClick={handleResetClick} />
-        </div>: null}
+      {displayPlayAgain ? (
+        <div>
+          <PlayAgain setToPlayAgain={setToPlayAgain} />
+          <Reset setToQuit={setToQuit} />
+        </div>
+      ) : null}
     </div>
   );
 }
