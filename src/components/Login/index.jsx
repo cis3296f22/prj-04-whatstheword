@@ -26,7 +26,7 @@ function Login(props) {
 
         // Find user login info
         const Http = new XMLHttpRequest();
-        const url = "http://127.0.0.1:8000/polls/" + uname.value + "/" + pass.value + "/" + "sign_in/";
+        const url = "https://whatstheword-backend.herokuapp.com/polls/" + uname.value + "/" + pass.value + "/" + "sign_in/";
         Http.open("GET", url);
         Http.send();
         Http.onreadystatechange=function(){

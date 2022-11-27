@@ -20,7 +20,7 @@ function CreateAccount(props) {
 
         // Check if username is taken
         const Http = new XMLHttpRequest();
-        const url = "http://127.0.0.1:8000/polls/" + uname.value + "/" + pass.value + "/" + "create_account/";
+        const url = "https://whatstheword-backend.herokuapp.com/polls/" + uname.value + "/" + pass.value + "/" + "create_account/";
         Http.open("GET", url);
         Http.send();
         Http.onreadystatechange=function(){
