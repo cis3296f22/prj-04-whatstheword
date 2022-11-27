@@ -7,6 +7,7 @@ import Game from "./components/Game";
 
 function App() {
   console.log("app running");
+
   const darkHandler = (dark) => {
     if (dark) {
       //remove all other color schemes

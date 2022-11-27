@@ -27,6 +27,7 @@ function NavBar(props) {
         </div>
     );
   return (
+
       props.navBarLoggedIn ? renderLoggedIn :
       <div className="navbar flex w-50 justify-between items-center pt-5 py-3 sm:pt-3 text-black dark:text-white blue:text-yellow red:text-yellow purple:text-yellow">
           <HelpOutlineIcon
@@ -44,6 +45,7 @@ function NavBar(props) {
               }}
           />
           <Settings darkness={props.darkness} dark={props.dark} blueness={props.blueness} blue={props.blue} redness={props.redness} red={props.red} purpleness={props.purpleness} purple={props.purple} leaderboard={props.leaderboard} />
+
 
       </div>
   );

@@ -10,11 +10,16 @@ import Leaderboard from "../Leaderboard";
 import styles from "./style.module.css";
 import Login from "../Login";
 import { useMainMenu } from "./useMainMenu";
+
 import CreateAccount from "../CreateAccount";
+
+import PlayAgain from "../PlayAgain";
+
 
 const DEFAULT_WORD_LENGTH = 5;
 
 console.log("game running");
+
 // Putting the WhatstheWord Game together, using the other components (Board, Keyboard, etc) together
 var navBarLoggedIn = false;
 function Game(props) {
@@ -32,8 +37,13 @@ function Game(props) {
   const [red, setRed] = useState(false);
   const [purple, setPurple] = useState(false);
   const [login, setLogin] = useState(false);
+
   const [createAccount, setCreateAccount] = useState(false);
-  const[score, setScore] = useState(0);
+ 
+  const [score, setScore] = useState(0);
+  const [attempts, setAttempts] = useState(0);
+  const [toQuit, setToQuit] = useState(false);
+
 
   const handleLoginCallback = (user) =>{
     //make login and create account buttons invisible
@@ -72,7 +82,6 @@ function Game(props) {
 
   useEffect(() => {
     window.addEventListener("keydown", onClickDown);
-
     return () => window.removeEventListener("keydown", onClickDown);
   });
 
@@ -101,6 +110,7 @@ function Game(props) {
     setLetters(lettersValue);
     setChanged(!changed);
   };
+
   return (
     <>
       {help && (
@@ -145,6 +155,8 @@ function Game(props) {
               letter={letter}
               clicks={clicked}
               letters={LettersHandler}
+              score={score}
+              attempts={attempts}
               error={setError}
             />
             <KeyBoard keyHandler={keyHandler} letters={letters} changed={changed} />

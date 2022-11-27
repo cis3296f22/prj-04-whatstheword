@@ -1,10 +1,11 @@
 import ReactDOM from "react-dom";
-import { within } from "@testing-library/dom";
-import { render, screen } from "@testing-library/react";
+import { cleanup, render, screen, within } from "@testing-library/react";
 import Board, { chooseCorrectWord } from "./index";
 import words from "../../words";
 
 describe("Board", () => {
+  afterEach(cleanup);
+
   describe("chooseCorrectWord()", () => {
     it.each`
       wordLength
