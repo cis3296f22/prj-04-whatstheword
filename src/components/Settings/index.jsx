@@ -10,18 +10,8 @@ function Settings(props) {
   const [show, setShow] = useState(false);
   const [show2, setShow2] = useState(false);
   const [score, setScore] = useState(props.score);
+  const [toPlayAgain, setToPlayAgain] = useState(false);
   const [toQuit, setToQuit] = useState(false);
-
-  const handleResetClick = (boo, value) => {
-    setToQuit(boo);
-    console.log("From Game! toQuit: " + toQuit)
-    if (toQuit == true) 
-    {
-      //setScore(value);
-      //<Board score={score} />
-      window.location.reload(false); 
-    }
-  }
 
   const leaderboardChange = () => {
     props.leaderboard(true);
@@ -60,11 +50,24 @@ function Settings(props) {
     setAnchorEl(null);
   };
 
+  useEffect(() => {
+    if (toPlayAgain === true) {
+      window.location.reload(false);
+    }
+  }, [toPlayAgain]);
+
+  useEffect(() => {
+    if (toQuit === true) 
+    {
+      window.location.reload(false);
+    }
+  }, [toQuit]);
+
   return (
     <div>
       <SettingsIcon
         onClick={handleClick}
-        className="text-black dark:text-white blue:text-yellow red:text-yellow purple:text-yellow"
+        className="text-black dark:text-white blue:text-yellow red:text-yellow purple:text-yellow cursor-pointer"
       />
       <Menu anchorEl={anchorEl} open={open} onClose={handleClose} style={{
 
@@ -119,7 +122,7 @@ function Settings(props) {
               >Worldwide</div>
           </div>:null}
         <div className="dropdown-item"
-          onClick={event => handleResetClick(true, 0)}
+          onClick={(event) => setToQuit(true)}
         >Quit</div>
       </Menu>
     </div>
