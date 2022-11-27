@@ -32,7 +32,7 @@ def create(request, _username, _password):
             response = "Username is already taken"
 
     if response == "User created":
-        q = User(username=_username, password=_password)
+        q = User(username=_username, password=_password, score=0)
         q.save()
 
     return HttpResponse(response)
@@ -48,3 +48,25 @@ def sign_in(request, _username, _password):
                 response = "Sign in successful"
 
     return HttpResponse(response + ' ' + f'{_username}')
+
+
+def get_score(request, _username):
+    user_list = User.objects.all()
+    score = 0
+    for user in user_list:
+        if user.username == _username:
+            score = user.score
+
+    return HttpResponse(score)
+
+
+def set_score(request, _username, _score):
+    user_list = User.objects.all()
+    score = 0
+    for user in user_list:
+        if user.username == _username:
+            user.score += int(_score)
+            user.save()
+            score = user.score
+
+    return HttpResponse(score)

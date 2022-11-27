@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import styles from "./style.module.css";
+import NavBar from "../NavBar"
+import Game from "../Game"
 
 console.log("login running");
 
@@ -8,22 +10,13 @@ function Login(props) {
     const [errorMessages, setErrorMessages] = useState({});
     const [isSubmitted, setIsSubmitted] = useState(false);
 
-    // User Login info
-    const database = [
-        {
-            username: "user1",
-            password: "pass1"
-        },
-        {
-            username: "user2",
-            password: "pass2"
-        }
-    ];
+    //var isLoggedIn = false;
 
     const errors = {
-        uname: "invalid username",
-        pass: "invalid password"
+        signin: "Sign in failed.",
+        httpreq: "Http request failed."
     };
+
 
     const handleSubmit = (event) => {
         //Prevent page reload
@@ -32,19 +25,26 @@ function Login(props) {
         var { uname, pass } = document.forms[0];
 
         // Find user login info
-        const userData = database.find((user) => user.username === uname.value);
-
-        // Compare user info
-        if (userData) {
-            if (userData.password !== pass.value) {
-                // Invalid password
-                setErrorMessages({ name: "pass", message: errors.pass });
-            } else {
-                setIsSubmitted(true);
+        const Http = new XMLHttpRequest();
+        const url = "https://whatstheword-backend.herokuapp.com/polls/" + uname.value + "/" + pass.value + "/" + "sign_in/";
+        Http.open("GET", url);
+        Http.send();
+        Http.onreadystatechange=function(){
+            if(this.readyState===4 && this.status===200){
+                if(Http.responseText === ("Sign in successful " + uname.value)) {
+                    setIsSubmitted(true);
+                    const user = {username: uname.value, password: pass.value}
+                    props.parentCallback(user);
+                }
+                else{
+                    console.log("sign in failed");
+                    setErrorMessages({name: "signin", message: errors.signin});
+                }
             }
-        } else {
-            // Username not found
-            setErrorMessages({ name: "uname", message: errors.uname });
+            else {
+                console.log("HTTP request error");
+                setErrorMessages({name: "httpreq", message: errors.httpreq});
+            }
         }
     };
 
@@ -61,12 +61,12 @@ function Login(props) {
                 <div className={styles.inputContainer}>
                     <label>Username </label>
                     <input type="text" name="uname" required />
-                    {renderErrorMessage("uname")}
+                    {renderErrorMessage("signin")}
                 </div>
                 <div className={styles.inputContainer}>
                     <label>Password </label>
                     <input type="password" name="pass" required />
-                    {renderErrorMessage("pass")}
+                    {renderErrorMessage("httpreq")}
                 </div>
                 <div className={styles.buttonContainer}>
                     <input type="submit" />
@@ -76,21 +76,13 @@ function Login(props) {
     );
 
     return (
-
         <div>
-            {isSubmitted ? <div>User is successfully logged in</div> : renderForm}
-        </div>
+            {isSubmitted ? (<div>User is successfully logged in
 
+                            </div>)
+                : renderForm }
+        </div>
     );
-
-  /*  return (
-        <div className={styles.login}>
-            <div className={styles.loginForm}>
-                <div className={styles.title}>Sign In</div>
-                {isSubmitted ? <div>User is successfully logged in</div> : renderForm}
-            </div>
-        </div>
-    );*/
 }
 
 export default Login;
