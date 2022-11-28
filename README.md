@@ -19,7 +19,6 @@ Additionally, What's the Word incorporates other features to enhance the gamepla
 - [Credits](#credits)
 - [License](#license)
 
-
 ## Usage
 
 ### Production
@@ -34,17 +33,6 @@ if you would like to run the application locally:
 npm start
 ```
 4. Navigate to [http://localhost:3000](http://localhost:3000) in a web browser
-
-## Usage
-
-
-Provide instructions and examples for use. Include screenshots as needed.
-
-To add a screenshot, create an `assets/images` folder in your repository and upload your screenshot to it. Then, using the relative filepath, add it to your README using the following syntax:
-
-    ```md
-    ![alt text](assets/images/screenshot.png)
-    ```
 
 ## Credits
 ### Developers
