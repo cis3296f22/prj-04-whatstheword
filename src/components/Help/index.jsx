@@ -24,12 +24,20 @@ function Box(props) {
 function Help() {
   return (
     <>
+      <h3 className="text-left font-bold">Introduction</h3>
       <p className="text-left text-sm sm:text-base py-5 font-regular opacity-75 mr-1">
-        Guess the word in six tries.
+        You have choose from three different levels: 4, 5, or 6!
         <br />
-        Each guess must be a valid five-letter word. Hit the enter button to
+        4 - four-letter words and five tries 
+        <br />
+        5 - five-letter words and six tries
+        <br />
+        6 - six-letter words and seven tries
+        <br />
+        Each guess must be a valid word. Hit the enter button to
         submit.
-        <br /> After each guess, the color of the tiles will change to show how
+        <br /> 
+        After each guess, the color of the tiles will change to show how
         close your guess was to the word.
       </p>
       <hr />
@@ -63,6 +71,14 @@ function Help() {
       </div>
       <p className="text-left text-sm sm:text-base py-2 opacity-75">
         The letter <b>L</b> is not in the word.
+      </p>
+      <hr />
+      <h3 className="text-left font-bold pt-5">Scoring</h3>
+      <p className="text-left text-sm sm:text-base py-5 font-regular opacity-75 mr-1">
+        After solving the puzzle you will earn a certain amount of points for score as well as the 
+        amount of attempts you used
+        <br /> <br />
+        Use your attempts wisely!
       </p>
     </>
   );
