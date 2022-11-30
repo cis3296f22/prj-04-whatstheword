@@ -7,7 +7,7 @@ console.log("modal running");
  * A div with a background corresponding to the letter state (e.g., gray for incorrect)
  * Used within the Help component
  * @param {string} props.title - Modal title
- * @param {Function} props.leaderboard - ???
+ * @param {Function} props.leaderboard - creates a leaderboard
  * @memberof Components
  * @returns Modal component
  */
