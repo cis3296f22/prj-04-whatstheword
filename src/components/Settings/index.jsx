@@ -5,11 +5,28 @@ import Board from "../Board";
 import { useEffect, useState } from "react";
 
 console.log("settings running");
+
+/**
+ * function to render the Settings Tab
+ * @param {Null} anchorEl - event handler 
+ * @param {Boolean} show - To toggle the Themes
+ * @param {Boolean} show2 - To toggle the Leaderboard
+ * @param {Boolean} toPlayAgain - To play again
+ * @param {Boolean} toQuit - To quit game
+ * @param {Function} leaderboardChange - to show the leaderboard
+ * @param {Function} darkHandlerChange - to display dark theme
+ * @param {Function} blueHandlerChange - to display blue theme
+ * @param {Function} redHandlerChange - to display red theme
+ * @param {Function} purpleHandlerChange - to display purple theme
+ * @param {Function} open - if anchorEl is true
+ * @param {Function} handleClick - event handler for clicked
+ * @param {Function} handleClose - To close the display
+ * @returns the Settings functionality and display
+ */
 function Settings(props) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [show, setShow] = useState(false);
   const [show2, setShow2] = useState(false);
-  const [score, setScore] = useState(props.score);
   const [toPlayAgain, setToPlayAgain] = useState(false);
   const [toQuit, setToQuit] = useState(false);
 

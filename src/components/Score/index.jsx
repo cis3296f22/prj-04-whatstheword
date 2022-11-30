@@ -1,5 +1,11 @@
 import { useEffect, useState } from "react";
 
+/**
+ * function to render the score and attempts
+ * @param {Number} score - the score display
+ * @param {Number} attempts - the number of attempts display
+ * @returns the score and attempts display
+ */
 function Score(props) {
     const[score, setScore] = useState(0);
     const[attempts, setAttempts] = useState(0);

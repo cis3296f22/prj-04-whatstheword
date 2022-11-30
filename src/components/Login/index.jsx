@@ -5,6 +5,12 @@ import Game from "../Game"
 
 console.log("login running");
 
+/**
+ * function to create the functionality of login
+ * @param {Function} errorMessages - the error message
+ * @param {Boolean} isSubmitted - if the login is submitted
+ * @returns the functionality of the login 
+ */
 function Login(props) {
     // React States
     const [errorMessages, setErrorMessages] = useState({});

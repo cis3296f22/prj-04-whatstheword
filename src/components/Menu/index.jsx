@@ -1,6 +1,12 @@
 import { useCallback, useEffect, useState } from "react";
 import Game from "../Game";
 
+/**
+ * function to render the startup Menu
+ * @param {Function} onClick - Event Handler for Menu
+ * @param {Function} changeLength - Option choice for length
+ * @returns the Startup Menu
+ */
 function Menu({ onClick, changeLength }) {
   return (
     <div className="flex flex-col items-center w-100 pb-5 gap-5 dark:text-white blue:text-yellow red:text-yellow purple:text-yellow">

@@ -2,6 +2,12 @@ import { useState, useEffect } from "react";
 import styles from "./style.module.css";
 console.log("CreateAccount running");
 
+/**
+ * function to create Account 
+ * @param {function} errorMessages - outputs error message to screen
+ * @param {Boolean} isSubmitted - length of the word
+ * @returns the functionality of the Navbar under the Create Account Icon
+ */
 function CreateAccount(props) {
     // React States
     const [errorMessages, setErrorMessages] = useState({});
