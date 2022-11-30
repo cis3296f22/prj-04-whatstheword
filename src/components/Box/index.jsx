@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react";
 import BackspaceIcon from "@mui/icons-material/Backspace";
 
-console.log("box running");
-// Properties of the game board (color)
+/**
+ * This function sets the color of each box based on the state of the letter
+ * @param {string} props.state - C=Correct, E=Letter in word but in different position, N=Letter not in word
+ * @memberof Components
+ * @returns div of each box
+ */
 function Box(props) {
   const [state, setState] = useState(
     "text-black border-2 border-gray-300 dark:text-white blue:text-yellow red:text-yellow purple:text-yellow rounded"
