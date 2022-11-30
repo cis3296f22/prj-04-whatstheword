@@ -55,15 +55,15 @@ function Game(props) {
 
   const start = () => hideMainMenu();
 
-  // Changes length of word
-  const changeLength4 = () => {
-    setLength(4);
-  }
-  const changeLength5 = () => {
-    setLength(5);
-  }
-  const changeLength6 = () => {
-    setLength(6);
+  // Changes length of word based on user selection
+  const changeLength = (event) => {
+    if (event.target.value == 4) {
+      setLength(4);
+    } else if (event.target.value == 5) {
+      setLength(5);
+    } else if (event.target.value == 6) {
+      setLength(6);
+    }
   }
 
   // Putting the input, the letters, in order to guess and enter the word
@@ -145,7 +145,7 @@ function Game(props) {
         <NavBar navBarLoggedIn={navBarLoggedIn} help={setHelp} login={setLogin} createAccount={setCreateAccount} leaderboard={setLeaderboard} darkness={setDark} dark={dark} blueness={setBlue} blue={blue} redness={setRed} red={red} purpleness={setPurple} purple={purple} />
         {mainMenu ? (
           <div>
-            <Menu onClick={start} changeLength4={changeLength4} changeLength5={changeLength5} changeLength6={changeLength6}/>
+            <Menu onClick={start} changeLength={changeLength}/>
           </div>
         ) : (
           <div>
