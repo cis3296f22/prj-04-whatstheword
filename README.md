@@ -10,8 +10,8 @@ In What's the Word, players can choose the length of the mystery word, with opti
 
 Additionally, What's the Word incorporates other features to enhance the gameplay:
 - Five different themes to choose from
-- A login system to save your score!
-- Leaderboards to see where you stand again the competition
+- A login system to save your score
+- Leaderboards to see where you stand against the competition
 
 ## Table of Contents
 
