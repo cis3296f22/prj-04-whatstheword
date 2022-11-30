@@ -1,7 +1,16 @@
+// /** @namespace Components */
 import CloseIcon from "@mui/icons-material/Close";
 
 console.log("modal running");
-// Affects the 'How to play' button 
+// Affects the 'How to play' button
+/**
+ * A div with a background corresponding to the letter state (e.g., gray for incorrect)
+ * Used within the Help component
+ * @param {string} props.title - Modal title
+ * @param {Function} props.leaderboard - ???
+ * @memberof Components
+ * @returns Modal component
+ */
 function Modal(props) {
   return (
     <div className="absolute w-full h-full grid place-cente">
@@ -15,14 +24,12 @@ function Modal(props) {
           <CloseIcon
             onClick={() => {
               if (props.title === "Personal Leaderboard")
-                props.leaderboard(false)
-              else if (props.title === "How to play!")
-                props.help(false);
+                props.leaderboard(false);
+              else if (props.title === "How to play!") props.help(false);
               //console.log(props.title);
-              else if (props.title === "Sign In")
-                  props.login(false);
-              else if(props.title === "Create Account")
-                  props.createAccount(false)
+              else if (props.title === "Sign In") props.login(false);
+              else if (props.title === "Create Account")
+                props.createAccount(false);
             }}
           />
         </div>
@@ -33,15 +40,11 @@ function Modal(props) {
       <div
         className="z-0 absolute w-full h-full grid place-cente"
         onClick={() => {
-          if (props.title === "Personal Leaderboard")
-            props.leaderboard(false)
-          else if (props.title === "How to play!")
-            props.help(false);
+          if (props.title === "Personal Leaderboard") props.leaderboard(false);
+          else if (props.title === "How to play!") props.help(false);
           //console.log(props.title);
-          else if (props.title === "Sign In")
-              props.login(false);
-          else if(props.title === "Create Account")
-              props.createAccount(false)
+          else if (props.title === "Sign In") props.login(false);
+          else if (props.title === "Create Account") props.createAccount(false);
         }}
       />
     </div>

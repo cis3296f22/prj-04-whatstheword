@@ -10,11 +10,23 @@ const defaultLetters = [];
   defaultLetters[i] = "";
 });
 
+/**
+ * selects a random word from list
+ * @param {Number} wordLength - Length of the word
+ * @memberof Components
+ * @returns a string containing a word from the list
+ */
 export const chooseCorrectWord = (wordLength) => {
   const wordIndex = Math.round(Math.random() * (words[wordLength].length - 1));
   return words[wordLength][wordIndex].toUpperCase();
 };
 
+/**
+ * generates a board of an inputted length
+ * @param {Number} wordLength - Length of the word
+ * @memberof Components
+ * @returns an array of arrays
+ */
 export const generateDefaultBoard = (wordLength) => {
   const defaultBoard = [];
   for (let i = 0; i < wordLength + 1; i++) {
@@ -26,13 +38,17 @@ export const generateDefaultBoard = (wordLength) => {
   return defaultBoard;
 };
 
-// const letter --> the clickable text (Delete, Enter)
-// const board --> the display of the board (Connected with row)
-// const changed --> changes to the board
-// const row --> the rows of the board
-// const col --> The current attempt of word
-// const message --> Relays message to display
-
+/**
+ * function to render board and implement game logic
+ * @param {Number} props.length - length of the word
+ * @param {Number} props.score - user score
+ * @param {Number} props.attempts - amount of gusses that user has attempted
+ * @param {Number} props.clicks - position of key
+ * @param {String} props.letter - represents each letter
+ * @param {function} props.error - outputs error message to screen
+ * @memberof Components
+ * @returns the current state of the board
+ */
 function Board(props) {
   const [wordLength, setWordLength] = useState(props.length);
   const [correctWord, setCorrectWord] = useState(chooseCorrectWord(wordLength));
@@ -152,8 +168,7 @@ function Board(props) {
     console.log("Valid effect hook");
     const prevBoard = board;
     let correctLetters = 0;
-    // TODO - remove debug console.log() line below
-    console.log("is Valid?", valid);
+
     if (valid) {
       for (let i = 0; i < wordLength; i++) {
         if (correctWord[i] === prevBoard[row][i][0]) {
