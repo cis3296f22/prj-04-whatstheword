@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
 import { Button } from "@mui/material";
 import Board from "../Board";
-
+/**
+ * resets to main menu when play again button is clicked
+ * @param {function} props.setToPlayAgain - passes true when clicked
+ * @memberof Components
+ * @returns a div for the playAgain button
+ */
 function PlayAgain({ setToPlayAgain }) {
   return (
     <div>
