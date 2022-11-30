@@ -1,6 +1,22 @@
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useEffect, useState } from "react";
 
+/**
+ * function to render Leaderboard
+ * @param {String} name1 - the ranked 1st name 
+ * @param {String} name2 - the ranked 2nd name 
+ * @param {String} name3 - the ranked 3rd name 
+ * @param {String} name4 - the ranked 4th name 
+ * @param {String} name5 - the ranked 5th name 
+ * @param {Number} score1 - the score of the 1st rank
+ * @param {Number} score2 - the score of the 2nd rank
+ * @param {Number} score3 - the score of the 3rd rank
+ * @param {Number} score4 - the score of the 4th rank
+ * @param {Number} score5 - the score of the 5th rank
+ * @param {Number} Ranking - the Ranking of the uders
+ * @memberof Components
+ * @returns the display of the leaderboard
+ */
 function Leaderboard(props) { 
     const[name1, setName1] = useState("");
     const[name2, setName2] = useState("");
@@ -13,7 +29,6 @@ function Leaderboard(props) {
     const[score4, setScore4] = useState(0);
     const[score5, setScore5] = useState(0);
     const[ranking, setRanking] = useState(0);
-    
 
     return (
         <>

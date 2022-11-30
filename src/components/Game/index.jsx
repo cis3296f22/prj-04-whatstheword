@@ -22,6 +22,29 @@ console.log("game running");
 
 // Putting the WhatstheWord Game together, using the other components (Board, Keyboard, etc) together
 var navBarLoggedIn = false;
+
+/**
+ * function to render the Game with the working components 
+ * @param {Number} mainMenu - user score
+ * @param {Number} length - length of the word
+ * @param {String} letter - represents each letter
+ * @param {Boolean} changed - if the properties of the game changed (Correct, Almost, Wrong)
+ * @param {function} letters - the letters of the board and keyboard
+ * @param {Boolean} help - describing the game better 
+ * @param {Boolean} leaderboard - the top highest scores and users
+ * @param {Number} clicked - the amount of interaction with the keyboard
+ * @param {String} error - the error message that may occur
+ * @param {Boolean} dark - the color theme dark
+ * @param {Boolean} blue - the color theme blue
+ * @param {Boolean} red - the color theme red
+ * @param {Boolean} purple - the color theme purple
+ * @param {Boolean} login - the login system for the game
+ * @param {Boolean} createAccount - to create your account of the game
+ * @param {Number} score - to keep track of your score
+ * @param {Number} attempts - the number of attempts attempted 
+ * @memberof Components
+ * @returns the whole game functionality
+ */
 function Game(props) {
   const [mainMenu, setMainMenu, hideMainMenu] = useMainMenu();
   const [length, setLength] = useState(DEFAULT_WORD_LENGTH);
@@ -42,7 +65,6 @@ function Game(props) {
  
   const [score, setScore] = useState(0);
   const [attempts, setAttempts] = useState(0);
-  const [toQuit, setToQuit] = useState(false);
 
 
   const handleLoginCallback = (user) =>{

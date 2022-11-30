@@ -14,6 +14,12 @@ let defaultLetters = [];
   defaultLetters[i] = "";
 });
 
+/**
+ * function to create the keys of the keyboard
+ * @param {function} state - the changing of the display
+ * @memberof Components
+ * @returns the functionality of keyboard and its keys
+ */
 function Key(props) {
   const [state, setState] = useState("bg-gray-200 hover:bg-gray-300 " + 
                                       "dark:bg-zinc-400 dark:text-white dark:hover:bg-zinc-500" + 
@@ -53,6 +59,11 @@ function Key(props) {
   );
 }
 
+/**
+ * function to create Account 
+ * @param {String} letters - the letters of the keyboard
+ * @returns the Keyboard and functionality
+ */
 function KeyBoard(props) {
   const [letters, setletters] = useState(defaultLetters);
   useEffect(() => {

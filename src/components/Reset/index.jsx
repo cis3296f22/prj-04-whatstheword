@@ -2,6 +2,11 @@ import { useEffect, useState } from "react";
 import { Button } from "@mui/material";
 import Board from "../Board";
 
+/**
+ * function to create the functionality of Reset
+ * @param {Boolean} setToQuit - returns to Main Menu
+ * @returns the functionality of the Reset
+ */
 function Reset({ setToQuit }) {
   return (
     <div>
