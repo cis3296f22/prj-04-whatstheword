@@ -1,10 +1,18 @@
-
+/** @namespace Components */
 // C --> Correct letter in the right place color (green)
 // E --> Correct letter in the wrong place color (yellow)
 // N --> Wrong letter color (gray)
 console.log("help running");
+/**
+ * A div with a background corresponding to the letter state (e.g., gray for incorrect)
+ * Used within the Help component
+ * @param {string} props.state - C=Correct, E=Letter in word but in different position, N=Letter not in word
+ * @memberof Components
+ * @returns Box component
+ */
 function Box(props) {
-  let state = "text-black border-2 border-gray-300 dark:text-white blue:text-yellow red:text-yellow purple:text-yellow";
+  let state =
+    "text-black border-2 border-gray-300 dark:text-white blue:text-yellow red:text-yellow purple:text-yellow";
   if (props.state === "C") state = "bg-emerald-500 text-white";
   if (props.state === "E") state = "bg-amber-500 text-white";
   if (props.state === "N") state = "bg-zinc-500 text-white dark:bg-gray-700";
@@ -21,6 +29,11 @@ function Box(props) {
   );
 }
 
+/**
+ * Describes how to play the game
+ * @memberof Components
+ * @returns Help component
+ */
 function Help() {
   return (
     <>
@@ -28,17 +41,16 @@ function Help() {
       <p className="text-left text-sm sm:text-base py-5 font-regular opacity-75 mr-1">
         You have choose from three different levels: 4, 5, or 6!
         <br />
-        4 - four-letter words and five tries 
+        4 - four-letter words and five tries
         <br />
         5 - five-letter words and six tries
         <br />
         6 - six-letter words and seven tries
         <br />
-        Each guess must be a valid word. Hit the enter button to
-        submit.
-        <br /> 
-        After each guess, the color of the tiles will change to show how
-        close your guess was to the word.
+        Each guess must be a valid word. Hit the enter button to submit.
+        <br />
+        After each guess, the color of the tiles will change to show how close
+        your guess was to the word.
       </p>
       <hr />
       <h3 className="text-left font-bold py-5">Examples</h3>
@@ -75,8 +87,8 @@ function Help() {
       <hr />
       <h3 className="text-left font-bold pt-5">Scoring</h3>
       <p className="text-left text-sm sm:text-base py-5 font-regular opacity-75 mr-1">
-        After solving the puzzle you will earn a certain amount of points for score as well as the 
-        amount of attempts you used
+        After solving the puzzle you will earn a certain amount of points for
+        score as well as the amount of attempts you used
         <br /> <br />
         Use your attempts wisely!
       </p>
