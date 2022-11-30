@@ -1,19 +1,33 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Box from "../Box";
 import Score from "../Score";
 import words from "../../words";
+import PlayAgain from "../PlayAgain";
+import Reset from "../Reset";
 
 const defaultLetters = [];
 "abcdefghijklmnopqrstuvwxyz".split("").forEach((i) => {
   defaultLetters[i] = "";
 });
 
-const chooseCorrectWord = (wordLength) => {
+/**
+ * selects a random word from list
+ * @param {Number} wordLength - Length of the word
+ * @memberof Components
+ * @returns a string containing a word from the list
+ */
+export const chooseCorrectWord = (wordLength) => {
   const wordIndex = Math.round(Math.random() * (words[wordLength].length - 1));
   return words[wordLength][wordIndex].toUpperCase();
 };
 
-const generateDefaultBoard = (wordLength) => {
+/**
+ * generates a board of an inputted length
+ * @param {Number} wordLength - Length of the word
+ * @memberof Components
+ * @returns an array of arrays
+ */
+export const generateDefaultBoard = (wordLength) => {
   const defaultBoard = [];
   for (let i = 0; i < wordLength + 1; i++) {
     defaultBoard.push([]);
@@ -24,15 +38,19 @@ const generateDefaultBoard = (wordLength) => {
   return defaultBoard;
 };
 
-// const letter --> the clickable text (Delete, Enter)
-// const board --> the display of the board (Connected with row)
-// const changed --> changes to the board
-// const row --> the rows of the board
-// const col --> The current attempt of word
-// const message --> Relays message to display
-
+/**
+ * function to render board and implement game logic
+ * @param {Number} props.length - length of the word
+ * @param {Number} props.score - user score
+ * @param {Number} props.attempts - amount of gusses that user has attempted
+ * @param {Number} props.clicks - position of key
+ * @param {String} props.letter - represents each letter
+ * @param {function} props.error - outputs error message to screen
+ * @memberof Components
+ * @returns the current state of the board
+ */
 function Board(props) {
-  const [wordLength, setWordLength] = useState(props.length)
+  const [wordLength, setWordLength] = useState(props.length);
   const [correctWord, setCorrectWord] = useState(chooseCorrectWord(wordLength));
   const [board, setBoard] = useState(generateDefaultBoard(wordLength));
   useEffect(() => {
@@ -50,14 +68,38 @@ function Board(props) {
   const [win, setWin] = useState(false);
   const [lost, setLost] = useState(false);
   const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
+  const [clicked, setClicked] = useState(0);
+  const [letter, setLetter] = useState();
   // Set initial value to undefined, since validation hasn't run yet
   const [valid, setValid] = useState(undefined);
   // Scoring feature
-  const [attempts, setAttempts] = useState(1);
-  const [score, setScore] = useState(0);
+  const [score, setScore] = useState(props.score);
+  const [attempts, setAttempts] = useState(props.attempts);
   var scoring = 0;
+  // Play Again Feature
+  const [displayPlayAgain, setDisplayPlayAgain] = useState(false);
+  const [toPlayAgain, setToPlayAgain] = useState(false);
+  const [toQuit, setToQuit] = useState(false);
 
-  // Keep existing Effect hook
+  useEffect(() => {
+    if (toPlayAgain === true) {
+      window.location.reload(false);
+    }
+  }, [toPlayAgain]);
+
+  useEffect(() => {
+    if (toQuit === true) {
+      setScore(0);
+      setAttempts(0);
+      window.location.reload(false);
+    }
+  }, [toQuit]);
+
+  const handleScoreResetClick = (value) => {
+    setScore(value);
+    setAttempts(value);
+  };
 
   useEffect(() => {
     console.log("Clicks effect hook");
@@ -81,9 +123,12 @@ function Board(props) {
         setValid(true);
       }
     };
-    
+
     if (win || lost) {
       console.log("Game ended!");
+      if (toPlayAgain == true) {
+        return <Board />;
+      }
     } else {
       if (props.clicks !== 0) {
         if (props.letter === "DEL") {
@@ -100,17 +145,15 @@ function Board(props) {
                 setCol(col + 1);
                 setValid(undefined);
               } else {
-                props.error("Words are ${wordLength} letters long!");
+                props.error(`Words are ${wordLength} letters long!`);
                 setTimeout(() => {
                   props.error("");
                 }, 1000);
               }
             } else {
               if (props.letter === "ENTER") {
-                
                 // Call async function defined above
                 checkWord(prevBoard);
-
               }
             }
             return prevBoard;
@@ -125,8 +168,7 @@ function Board(props) {
     console.log("Valid effect hook");
     const prevBoard = board;
     let correctLetters = 0;
-    // TODO - remove debug console.log() line below
-    console.log("is Valid?", valid);
+
     if (valid) {
       for (let i = 0; i < wordLength; i++) {
         if (correctWord[i] === prevBoard[row][i][0]) {
@@ -136,14 +178,15 @@ function Board(props) {
           prevBoard[row][i][1] = "E";
         else prevBoard[row][i][1] = "N";
         setRow(row + 1);
-        setAttempts(attempts + 1); 
+        setAttempts(attempts + 1);
         if (row === wordLength) {
           setLost(true);
-          setScore(0); 
+          setScore(0);
           console.log("Score: " + scoring);
-          console.log("Attempts: " + attempts);
+          console.log("Attempts: " + (attempts + 1));
           setTimeout(() => {
             setMessage(`It was ${correctWord}`);
+            setDisplayPlayAgain(true);
           }, 750);
         }
 
@@ -157,36 +200,93 @@ function Board(props) {
 
       if (correctLetters === wordLength) {
         setWin(true);
-        switch (attempts) {
-          case 1: 
-              scoring = score + 300;
-              setScore(scoring);
-              break;
-          case 2: 
-              scoring = score + 250;
-              setScore(scoring);
-              break;
-          case 3: 
-              scoring = score + 200;
-              setScore(scoring);
-              break;
-          case 4: 
+
+        if (wordLength == 4)
+          switch (attempts) {
+            case 0:
               scoring = score + 150;
               setScore(scoring);
               break;
-          case 5: 
+            case 1:
               scoring = score + 100;
               setScore(scoring);
               break;
-          case 6:
+            case 2:
               scoring = score + 50;
               setScore(scoring);
               break;
-        }
+            case 3:
+              scoring = score + 25;
+              setScore(scoring);
+              break;
+            case 4:
+              scoring = score + 10;
+              setScore(scoring);
+              break;
+          }
+        else if (wordLength == 5)
+          switch (attempts) {
+            case 0:
+              scoring = score + 300;
+              setScore(scoring);
+              break;
+            case 1:
+              scoring = score + 250;
+              setScore(scoring);
+              break;
+            case 2:
+              scoring = score + 200;
+              setScore(scoring);
+              break;
+            case 3:
+              scoring = score + 150;
+              setScore(scoring);
+              break;
+            case 4:
+              scoring = score + 100;
+              setScore(scoring);
+              break;
+            case 5:
+              scoring = score + 50;
+              setScore(scoring);
+              break;
+          }
+        else if (wordLength == 6)
+          switch (attempts) {
+            case 0:
+              scoring = score + 400;
+              setScore(scoring);
+              break;
+            case 1:
+              scoring = score + 300;
+              setScore(scoring);
+              break;
+            case 2:
+              scoring = score + 250;
+              setScore(scoring);
+              break;
+            case 3:
+              scoring = score + 200;
+              setScore(scoring);
+              break;
+            case 4:
+              scoring = score + 150;
+              setScore(scoring);
+              break;
+            case 5:
+              scoring = score + 100;
+              setScore(scoring);
+              break;
+            case 6:
+              scoring = score + 50;
+              setScore(scoring);
+              break;
+          }
         console.log("Score: " + scoring);
-        console.log("Attempts: " + attempts);
+        console.log("Attempts: " + (attempts + 1));
         setTimeout(() => {
           setMessage("You WIN");
+          setDisplayPlayAgain(true);
         }, 750);
       }
       return prevBoard;
@@ -202,25 +302,36 @@ function Board(props) {
     props.letters(letters);
   }, [changed]);
 
+  useEffect(() => {
+    setScore(JSON.parse(window.localStorage.getItem("score")));
+    //if (correctLetters === wordLength)
+  }, []);
+
+  useEffect(() => {
+    window.localStorage.setItem("score", score);
+  }, [score]);
 
   return (
     <div className="px-10 py-5 grid gap-y-1 items-center w-100 justify-center">
-      <Score
-          score={score} attempts={attempts}
-        />
+      <Score score={score} attempts={attempts} />
       {board.map((row, key) => {
         return (
-          <div key={key} className="flex gap-1 w-fit">
+          <div key={key} className="flex gap-1 w-fit" data-testid="row">
             {row.map((value, key) => (
               <Box key={key} value={value[0]} state={value[1]} pos={key} />
             ))}
           </div>
         );
       })}
-      <div className=" grid place-items-center h-8 font-bold dark:text-white blue:text-yellow red:text-yellow purple:text-yellow">
-      
+      <div className="grid place-items-center h-8 font-bold dark:text-white blue:text-yellow red:text-yellow purple:text-yellow">
         {lost || win ? message : ""}
       </div>
+      {displayPlayAgain ? (
+        <div>
+          <PlayAgain setToPlayAgain={setToPlayAgain} />
+          <Reset setToQuit={setToQuit} />
+        </div>
+      ) : null}
     </div>
   );
 }

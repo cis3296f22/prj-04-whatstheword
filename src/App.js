@@ -6,6 +6,8 @@ import Game from "./components/Game";
 // Game is from the Game Class is the main component for WhatsTheWord to run 
 
 function App() {
+  console.log("app running");
+
   const darkHandler = (dark) => {
     if (dark) {
       //remove all other color schemes
@@ -57,7 +59,7 @@ function App() {
 
   return (
     <div className={"app dark:bg-zinc-800 blue:blue-dark red:red-dark purple:purple-dark"}> 
-      <Game darkness={darkHandler} blueness={blueHandler} redness={redHandler} purpleness={purpleHandler} />
+      <Game isSubmitted={false} darkness={darkHandler} blueness={blueHandler} redness={redHandler} purpleness={purpleHandler} />
     </div>
   );
 }

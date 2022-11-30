@@ -1,12 +1,17 @@
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import SettingsIcon from "@mui/icons-material/Settings";
+import Board from "../Board";
 import { useEffect, useState } from "react";
 
+console.log("settings running");
 function Settings(props) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [show, setShow] = useState(false);
   const [show2, setShow2] = useState(false);
+  const [score, setScore] = useState(props.score);
+  const [toPlayAgain, setToPlayAgain] = useState(false);
+  const [toQuit, setToQuit] = useState(false);
 
   const leaderboardChange = () => {
     props.leaderboard(true);
@@ -45,11 +50,24 @@ function Settings(props) {
     setAnchorEl(null);
   };
 
+  useEffect(() => {
+    if (toPlayAgain === true) {
+      window.location.reload(false);
+    }
+  }, [toPlayAgain]);
+
+  useEffect(() => {
+    if (toQuit === true) 
+    {
+      window.location.reload(false);
+    }
+  }, [toQuit]);
+
   return (
     <div>
       <SettingsIcon
         onClick={handleClick}
-        className="text-black dark:text-white blue:text-yellow red:text-yellow purple:text-yellow"
+        className="text-black dark:text-white blue:text-yellow red:text-yellow purple:text-yellow cursor-pointer"
       />
       <Menu anchorEl={anchorEl} open={open} onClose={handleClose} style={{
 
@@ -103,7 +121,9 @@ function Settings(props) {
                 onClick={leaderboardChange}
               >Worldwide</div>
           </div>:null}
-        <div className="dropdown-item">Quit</div>
+        <div className="dropdown-item"
+          onClick={(event) => setToQuit(true)}
+        >Quit</div>
       </Menu>
     </div>
   );
